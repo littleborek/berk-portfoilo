@@ -1,98 +1,111 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
 
 body {
-    background-color: #000000;
-    color: #E0E0E0;
-    overflow-x: hidden;
+  background-color: #000;
+  color: #E0E0E0;
+  overflow-x: hidden;
 }
 
-/* Buzlu Cam Efekti için Özel Sınıf */
+/* Buzlu Cam Efekti */
 .frosted-glass {
-    background-color: var(--tw-bg-opacity, 1) var(--tw-bg-color, theme('colors.glass'));
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid theme('colors.glass-border');
-    border-radius: 0.75rem; /* rounded-lg */
+  background-color: transparent; 
+  backdrop-filter: blur(12px); 
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2); 
+  border-radius: 0.75rem; 
 }
 
 nav.frosted-glass {
-    border-radius: 0;
-    border-left: 0;
-    border-right: 0;
-    border-top: 0;
+  background-color: transparent; 
+  border-radius: 0;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
 }
 
-/* GÜNCELLENDİ: Harf Harf Yazma Animasyonu ("Berk" için) */
+/* Harf Harf Yazma Animasyonu */
 .typing-effect {
-    width: 4.5ch; /* "Berk" (4 harf) + imleç alanı */
-    white-space: nowrap;
-    overflow: hidden;
-    border-right: 4px solid theme('colors.accent');
-    animation: typing 1s steps(4), blink 0.5s step-end infinite alternate;
+  width: 4.5ch;
+  white-space: nowrap;
+  overflow: hidden;
+  border-right: 4px solid #1abc9c; 
+  animation: typing 1s steps(4), blink 0.5s step-end infinite alternate;
 }
 
 @keyframes typing {
-    from { width: 0; }
+  from { width: 0; }
 }
+
 @keyframes blink {
-    50% { border-color: transparent; }
+  50% { border-color: transparent; }
 }
 
 /* Aşağı Kaydırma Oku Animasyonu */
 .scroll-arrow {
-    animation: bounce 2s infinite;
+  animation: bounce 2s infinite;
 }
+
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-    }
-    40% {
-        transform: translateY(-20px);
-    }
-    60% {
-        transform: translateY(-10px);
-    }
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-20px);
+  }
+
+  60% {
+    transform: translateY(-10px);
+  }
 }
 
 /* Deneyim Zaman Çizelgesi Stilleri */
 .timeline-item {
-    position: relative;
-    padding-left: 2.5rem;
-    padding-bottom: 1.5rem;
+  position: relative;
+  padding-left: 2.5rem;
+  padding-bottom: 1.5rem;
 }
+
+/* BOŞ SATIR EKLENDİ */
 .timeline-item:last-child {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
+
+/* BOŞ SATIR EKLENDİ */
 .timeline-item::before {
-    content: '';
-    position: absolute;
-    left: 0.875rem;
-    top: 0.25rem;
-    width: 2px;
-    height: 100%;
-    background-color: theme('colors.glass-border');
+  content: '';
+  position: absolute;
+  left: 0.875rem;
+  top: 0.25rem;
+  width: 2px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.2); 
 }
+
+/* BOŞ SATIR EKLENDİ */
 .timeline-dot {
-    position: absolute;
-    left: 0;
-    top: 0.25rem;
-    width: 1.75rem;
-    height: 1.75rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: theme('colors.accent');
-    border-radius: 9999px;
-    z-index: 10;
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1abc9c; 
+  border-radius: 9999px;
+  z-index: 10;
 }
 
 /* IntersectionObserver Kaydırma Animasyonu */
 .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
+
+/* BOŞ SATIR EKLENDİ */
 .animate-on-scroll.visible {
-    opacity: 1;
-    transform: translateY(0);
+  opacity: 1;
+  transform: translateY(0);
 }

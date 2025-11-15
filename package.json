@@ -1,0 +1,17 @@
+{
+  "name": "berk-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio site for Berk Kocaborek, refactored for professional CI pipeline.",
+  "scripts": {
+    "lint:js": "eslint script.js",
+    "lint:css": "stylelint style.css",
+    "lint": "npm run lint:js && npm run lint:css"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.29.1",
+    "stylelint": "^16.2.1",
+    "stylelint-config-standard": "^36.0.0"
+  }
+}

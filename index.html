@@ -10,10 +10,15 @@
     <meta property="og:title" content="Berk ***REMOVED***- Cloud & DevOps Engineer">
     <meta property="og:description" content="Cloud & DevOps alanında kendini geliştiren Bilgisayar Mühendisliği öğrencisi.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://SENIN-SITEN.pages.dev/"> <meta property="og:image" content="https://SENIN-SITEN.pages.dev/profile.jpg"> <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:url" content="https://SENIN-SITEN.pages.dev/"> 
+    <meta property="og:image" content="https://SENIN-SITEN.pages.dev/profile.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Berk ***REMOVED***- Cloud & DevOps Engineer">
     <meta name="twitter:description" content="Cloud & DevOps alanında kendini geliştiren Bilgisayar Mühendisliği öğrencisi.">
-    <meta name="twitter:image" content="https://SENIN-SITEN.pages.dev/profile.jpg"> <script src="https://cdn.tailwindcss.com"></script>
+    <meta name="twitter:image" content="https://SENIN-SITEN.pages.dev/profile.jpg">
+
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <script>
@@ -48,7 +53,7 @@
         <nav class="frosted-glass border-b">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
                 <a href="#home" class="text-2xl font-bold hover:text-accent transition-colors">
-                    Berk K.
+                    Berk ***REMOVED***
                 </a>
                 <div class="hidden md:flex items-center space-x-6">
                     <a href="#about" class="hover:text-accent transition-colors" data-i18n-key="nav.about">Hakkımda</a>
@@ -63,7 +68,7 @@
                         <button id="lang-en" class="font-normal transition-colors hover:text-white">EN</button>
                     </div>
                 </div>
-                <button class="md:hidden text-gray-200">
+                <button id="mobile-menu-button" class="md:hidden text-gray-200">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
@@ -72,14 +77,29 @@
         </nav>
     </header>
 
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-90 backdrop-blur-lg z-40 flex items-center justify-center hidden">
+        <div class="flex flex-col items-center space-y-8">
+            <a href="#about" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.about">Hakkımda</a>
+            <a href="#skills" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.skills">Teknolojiler</a>
+            <a href="#experience" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.experience">Eğitim</a>
+            <a href="#projects" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.projects">Projeler</a>
+            <a href="#contact" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.contact">İletişim</a>
+        </div>
+        <button id="mobile-menu-close-button" class="absolute top-7 right-7 text-gray-400 hover:text-white">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
     <main class="relative z-10">
 
         <section id="home" class="h-screen flex items-center justify-center text-center relative px-4">
             <div>
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 text-white">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-white">
                     <span data-i18n-key="hero.greeting">Merhaba, ben</span> <span class="typing-effect text-accent">Berk</span>
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-300 mb-8" data-i18n-key="hero.subtitle">
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8" data-i18n-key="hero.subtitle">
                     Cloud & DevOps Engineer
                 </p>
                 <div class="flex justify-center space-x-6">
@@ -98,7 +118,7 @@
             </a>
         </section>
 
-        <section id="about" class="py-32 px-6">
+        <section id="about" class="py-32 px-6 bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
                 <div class="frosted-glass p-10">
                     <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="about.title">Hakkımda</h2>
@@ -114,7 +134,7 @@
             </div>
         </section>
 
-        <section id="skills" class="py-32 px-6 bg-black">
+        <section id="skills" class="py-32 px-6 bg-black bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
                 <div class="frosted-glass p-10">
                     <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="skills.title">Yetkinliklerim</h2>
@@ -132,7 +152,7 @@
             </div>
         </section>
 
-        <section id="experience" class="py-32 px-6">
+        <section id="experience" class="py-32 px-6 bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
                 <div class="frosted-glass p-10">
                     <h2 class="text-3xl font-bold mb-12 text-center text-accent scramble-effect" data-i18n-key="experience.title">Eğitim</h2>
@@ -150,7 +170,7 @@
             </div>
         </section>
         
-        <section id="projects" class="py-32 px-6 bg-black">
+        <section id="projects" class="py-32 px-6 bg-transparent">
             <div class="container mx-auto max-w-5xl animate-on-scroll">
                 <div class="frosted-glass p-10">
                     <h2 class="text-3xl font-bold mb-12 text-center text-accent scramble-effect" data-i18n-key="projects.title">Projelerim</h2>
@@ -166,7 +186,7 @@
             </div>
         </section>
 
-        <section id="contact" class="py-32 px-6">
+        <section id="contact" class="py-32 px-6 bg-transparent">
             <div class="container mx-auto max-w-3xl animate-on-scroll">
                 <div class="frosted-glass p-10">
                     <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="contact.title">İletişime Geçin</h2>

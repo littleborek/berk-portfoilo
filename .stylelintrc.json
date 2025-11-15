@@ -1,0 +1,12 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "color-function-notation": "legacy",
+    "at-rule-no-unknown": [true, { "ignoreAtRules": ["tailwind", "layer", "apply", "variants", "screen"] }],
+    "selector-class-pattern": null,
+    
+    "property-no-vendor-prefix": null,
+    "import-notation": "url",
+    "alpha-value-notation": "number"
+  }
+}
