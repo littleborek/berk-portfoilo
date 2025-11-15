@@ -66,12 +66,10 @@ nav.frosted-glass {
   padding-bottom: 1.5rem;
 }
 
-/* BOŞ SATIR EKLENDİ */
 .timeline-item:last-child {
   padding-bottom: 0;
 }
 
-/* BOŞ SATIR EKLENDİ */
 .timeline-item::before {
   content: '';
   position: absolute;
@@ -82,7 +80,6 @@ nav.frosted-glass {
   background-color: rgba(255, 255, 255, 0.2); 
 }
 
-/* BOŞ SATIR EKLENDİ */
 .timeline-dot {
   position: absolute;
   left: 0;
@@ -104,7 +101,6 @@ nav.frosted-glass {
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
-/* BOŞ SATIR EKLENDİ */
 .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);

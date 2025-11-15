@@ -113,22 +113,52 @@ const scrollObserver = new IntersectionObserver((entries, observer) => {
 });
 animatedElements.forEach(el => scrollObserver.observe(el));
 
-// --- 4. 'mailto:' İletişim Formu ---
+// --- 4. Formspree AJAX İletişim Formu ---
 const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', e => {
+const contactButton = document.getElementById('contact-submit-button');
+const contactStatus = document.getElementById('contact-status');
+
+// GÜNCELLENDİ: Formspree ID'si
+const FORMSPREE_URL = 'https://formspree.io/f/xdkyzopw';
+
+contactForm.addEventListener('submit', async e => {
   e.preventDefault();
 
-  const recipientEmail = '***REMOVED***.berkk@gmail.com';
-
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
   const currentLang = localStorage.getItem('language') || 'tr';
-  const subjectKey = (currentLang === 'tr')
-    ? `Portföy Sitesinden Yeni Mesaj: ${name}`
-    : `New Message from Portfolio Site: ${name}`;
-  const body = `Gönderen: ${name} (${email})\n\nMesaj:\n${message}`;
-  window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subjectKey)}&body=${encodeURIComponent(body)}`;
+
+  contactButton.disabled = true;
+  // HATA DÜZELTİLDİ: contact.sending'e doğru erişim
+  contactButton.textContent = translations[currentLang]['contact.sending'] || 'Gönderiliyor...';
+  contactStatus.textContent = '';
+
+  const formData = new FormData(e.target);
+
+  try {
+    const response = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        Accept: 'application/json'
+      }
+    });
+
+    if (response.ok) {
+      // HATA DÜZELTİLDİ: contact.success'e doğru erişim
+      contactStatus.textContent = translations[currentLang]['contact.success'] || 'Mesajınız için teşekkürler!';
+      contactStatus.className = 'text-center text-accent';
+      contactForm.reset();
+    } else {
+      throw new Error('Network response was not ok.');
+    }
+  } catch (error) {
+    // HATA DÜZELTİLDİ: contact.error'a doğru erişim
+    contactStatus.textContent = translations[currentLang]['contact.error'] || 'Bir hata oluştu. Lütfen tekrar deneyin.';
+    contactStatus.className = 'text-center text-red-500';
+  } finally {
+    contactButton.disabled = false;
+    // HATA DÜZELTİLDİ: contact.submitButton'a doğru erişim
+    contactButton.textContent = translations[currentLang]['contact.submitButton'] || 'Gönder';
+  }
 });
 
 // --- 5. DİL ÇEVİRİ MANTIĞI ---
@@ -162,7 +192,12 @@ const translations = {
     'contact.namePlaceholder': 'Adınızı buraya yazın...',
     'contact.emailPlaceholder': 'eposta@adresiniz.com',
     'contact.messagePlaceholder': 'Mesajınızı buraya yazın...',
-    'contact.submitButton': 'Gönder'
+    'contact.submitButton': 'Gönder',
+    'contact.sending': 'Gönderiliyor...',
+    'contact.success': 'Mesajınız için teşekkürler!',
+    'contact.error': 'Bir hata oluştu. Lütfen tekrar deneyin.',
+    'stats.repos': 'Public Repos',
+    'stats.followers': 'Takipçi'
   },
   en: {
     'nav.about': 'About',
@@ -193,7 +228,12 @@ const translations = {
     'contact.namePlaceholder': 'Enter your name...',
     'contact.emailPlaceholder': 'your@email.com',
     'contact.messagePlaceholder': 'Enter your message...',
-    'contact.submitButton': 'Send'
+    'contact.submitButton': 'Send',
+    'contact.sending': 'Sending...',
+    'contact.success': 'Thank you for your message!',
+    'contact.error': 'An error occurred. Please try again.',
+    'stats.repos': 'Public Repos',
+    'stats.followers': 'Followers'
   }
 };
 
@@ -362,7 +402,29 @@ mobileMenuLinks.forEach(link => {
   });
 });
 
-// --- SAYFA YÜKLEME SIRASI (En Sonda) ---
+// --- YENİ: 9. GITHUB İSTATİSTİKLERİNİ ÇEKME ---
+async function fetchGitHubStats() {
+  const statsUrl = 'https://api.github.com/users/littleborek';
+  const reposEl = document.getElementById('github-repos');
+  const followersEl = document.getElementById('github-followers');
+
+  try {
+    const response = await fetch(statsUrl);
+    if (!response.ok) throw new Error('GitHub stats API error');
+
+    const stats = await response.json();
+
+    reposEl.textContent = stats.public_repos;
+    followersEl.textContent = stats.followers;
+  } catch (error) {
+    console.error('GitHub istatistikleri çekilemedi:', error);
+    reposEl.textContent = 'N/A';
+    followersEl.textContent = 'N/A';
+  }
+}
+
+// --- SAYFA YÜKLEME SIRASI (GÜNCELLENDİ) ---
 const savedLang = localStorage.getItem('language') || 'tr';
 fetchGitHubProjects(savedLang);
+fetchGitHubStats();
 setLanguage(savedLang);

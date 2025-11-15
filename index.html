@@ -128,13 +128,25 @@
                             <p class="mb-4" data-i18n-key="about.p1"></p>
                             <p class="mb-4" data-i18n-key="about.p2"></p>
                             <p data-i18n-key="about.p3"></p>
+                            
+                            <div class="flex flex-wrap justify-center md:justify-start gap-4 mt-6">
+                                <div class="frosted-glass p-4 rounded-lg text-center min-w-[120px]">
+                                    <span class="text-3xl font-bold text-accent" id="github-repos">--</span>
+                                    <p class="text-sm text-gray-400" data-i18n-key="stats.repos">Public Repos</p>
+                                </div>
+                                <div class="frosted-glass p-4 rounded-lg text-center min-w-[120px]">
+                                    <span class="text-3xl font-bold text-accent" id="github-followers">--</span>
+                                    <p class="text-sm text-gray-400" data-i18n-key="stats.followers">Takipçi</p>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="py-32 px-6 bg-black bg-transparent">
+        <section id="skills" class="py-32 px-6 bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
                 <div class="frosted-glass p-10">
                     <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="skills.title">Yetkinliklerim</h2>
@@ -193,35 +205,31 @@
                     <p class="text-center text-gray-300 mb-8" data-i18n-key="contact.subtitle">
                         Benimle iletişime geçmekten çekinmeyin!
                     </p>
+                    
                     <form id="contact-form" class="space-y-6">
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-2" data-i18n-key="contact.nameLabel">Adınız</label>
                             <input type="text" id="name" name="name" required
-                                   class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none"
-                                   data-i18n-placeholder-key="contact.namePlaceholder"
-                                   placeholder="Adınızı buraya yazın...">
+                                   class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-300 mb-2" data-i18n-key="contact.emailLabel">E-posta Adresiniz</label>
                             <input type="email" id="email" name="email" required
-                                   class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none"
-                                   data-i18n-placeholder-key="contact.emailPlaceholder"
-                                   placeholder="eposta@adresiniz.com">
+                                   class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none">
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-300 mb-2" data-i18n-key="contact.messageLabel">Mesajınız</label>
                             <textarea id="message" name="message" rows="5" required
-                                      class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none"
-                                      data-i18n-placeholder-key="contact.messagePlaceholder"
-                                      placeholder="Mesajınızı buraya yazın..."></textarea>
+                                      class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none"></textarea>
                         </div>
                         <div class="text-center">
-                            <button type="submit"
-                                    class="bg-accent text-black font-bold py-3 px-8 rounded-full hover:bg-opacity-80 transition-colors duration-300"
+                            <button type="submit" id="contact-submit-button"
+                                    class="bg-accent text-black font-bold py-3 px-8 rounded-full hover:bg-opacity-80 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                                     data-i18n-key="contact.submitButton">
                                 Gönder
                             </button>
                         </div>
+                        <div id="contact-status" class="text-center mt-4"></div>
                     </form>
                 </div>
             </div>
