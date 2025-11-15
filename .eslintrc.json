@@ -3,7 +3,7 @@
   "env": { 
     "browser": true, 
     "es2021": true,
-    "node": false
+    "node": true  
   },
   "extends": "airbnb-base",
   "globals": {
@@ -19,7 +19,7 @@
     "import/extensions": [0, "always"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "indent": ["error", 2, { "SwitchCase": 1 }],
+    "indent": ["error", 2, { "SwitchCase": 1 }], /* 2-space indentation standard */
     "comma-dangle": ["error", "never"],
     "one-var": "off",
     "one-var-declaration-per-line": "off",
@@ -27,7 +27,6 @@
     "no-param-reassign": ["error", { "props": false }],
     "eol-last": ["error", "always"],
     "no-multiple-empty-lines": ["error", { "max": 1 }],
-    
     "arrow-parens": ["error", "as-needed"],
     "quote-props": ["error", "as-needed"]
   }

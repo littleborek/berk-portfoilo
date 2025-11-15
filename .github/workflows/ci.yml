@@ -46,17 +46,18 @@ jobs:
           node-version: '20'
 
       - name: Install Project Dependencies
-        run: npm install
+        # Hem Tailwind hem de sharp paketlerini kurar
+        run: npm install 
         
-      - name: Build and Optimize CSS
-        run: npm run build:css
+      - name: Build All Assets (CSS & Images)
+        # Yeni birleşik build komutunu çalıştırır
+        run: npm run build 
         
-      # GÜNCELLENDİ: v3 yerine v4 kullanılıyor
       - name: Save Built Assets (Artifact)
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: dist 
+          path: dist
 
 
   deploy: # CD JOB'u (Artık Build'e Bağımlı)
