@@ -17,7 +17,7 @@ jobs:
         with:
           node-version: '20'
           
-      - name: 📦 Install CI Dependencies (npm install) # YENİ: package.json'daki araçları yükle
+      - name: 📦 Install CI Dependencies
         run: npm install
 
       - name: 📦 Install HTML Linter (Global)
@@ -32,16 +32,47 @@ jobs:
       - name: 🎨 Run CSS Linter (Stylelint)
         run: npm run lint:css
 
+  build: # Tailwind Derlemesi ve Optimizasyon
+    needs: ci_check
+    name: Build and Optimize Assets
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout Code
+        uses: actions/checkout@v3
+        
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-  deploy: # VAR OLAN CD JOB'u (Artık CI'a Bağımlı)
-    # ÇOK ÖNEMLİ: Dağıtım sadece linting başarılı olursa çalışır.
-    needs: ci_check 
+      - name: Install Project Dependencies
+        run: npm install
+        
+      - name: Build and Optimize CSS
+        run: npm run build:css
+        
+      # GÜNCELLENDİ: v3 yerine v4 kullanılıyor
+      - name: Save Built Assets (Artifact)
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-files
+          path: dist 
+
+
+  deploy: # CD JOB'u (Artık Build'e Bağımlı)
+    needs: build
     name: Deploy to Cloudflare Pages
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      # GÜNCELLENDİ: v3 yerine v4 kullanılıyor
+      - name: Download Build Artifacts (dist)
+        uses: actions/download-artifact@v4
+        with:
+          name: dist-files
+          path: dist
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -49,4 +80,4 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: "."
+          directory: "./dist"
