@@ -56,7 +56,7 @@ Bu proje, modern web geliştirme ve DevOps pratiklerini birleştiren kişisel bi
 
 ## 🔗 Canlı Önizleme
 
-[Sitenin Canlı Linki Buraya Gelecek]
+https://berk-site.pages.dev/
 
 ## 🛠️ Teknik Özellikler
 
