@@ -9,7 +9,9 @@ function initStarfield() {
   if (!container) return;
 
   scene = new THREE.Scene();
-  camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+
+  const fov = isMobile ? 75 : 60;
+  camera = new THREE.PerspectiveCamera(fov, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.z = 1;
   camera.rotation.x = Math.PI / 2;
 
@@ -18,11 +20,13 @@ function initStarfield() {
     alpha: true,
     antialias: !isMobile
   });
+
   renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 2));
+
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
   container.appendChild(renderer.domElement);
 
-  const starCount = isMobile ? 2000 : 8000;
+  const starCount = isMobile ? 1500 : 6000;
   const positions = new Float32Array(starCount * 3);
 
   for (let i = 0; i < starCount; i++) {
@@ -35,10 +39,10 @@ function initStarfield() {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
   const material = new THREE.PointsMaterial({
-    size: isMobile ? 0.15 : 0.02,
+    size: isMobile ? 0.25 : 0.02,
     color: 0xffffff,
     transparent: true,
-    opacity: 0.7
+    opacity: isMobile ? 0.9 : 0.7
   });
 
   stars = new THREE.Points(geometry, material);
@@ -46,11 +50,8 @@ function initStarfield() {
 
   window.addEventListener('resize', onWindowResize, false);
 
-  if (isMobile && window.DeviceOrientationEvent) {
-    window.addEventListener('deviceorientation', onDeviceOrientation, false);
-  } else {
-    window.addEventListener('mousemove', onMouseMove, false);
-  }
+  document.addEventListener('mousemove', onMouseMove, false);
+  document.addEventListener('touchmove', onTouchMove, { passive: false });
 
   animate();
 }
@@ -60,27 +61,31 @@ function onMouseMove(event) {
   targetY = (event.clientY / window.innerHeight) - 0.5;
 }
 
-function onDeviceOrientation(event) {
-  let x = event.gamma;
-  const y = event.beta;
-  if (x > 90) x = 90;
-  if (x < -90) x = -90;
-  targetX = x / 90;
-  targetY = (y - 45) / 90;
+function onTouchMove(event) {
+  if (event.touches.length > 0) {
+    targetX = (event.touches[0].clientX / window.innerWidth) - 0.5;
+    targetY = (event.touches[0].clientY / window.innerHeight) - 0.5;
+  }
 }
 
 function animate() {
   requestAnimationFrame(animate);
+
+  if (isMobile) {
+    targetY += 0.0001;
+    targetX += 0.0001;
+  }
+
   currentX += (targetX - currentX) * 0.05;
   currentY += (targetY - currentY) * 0.05;
 
-  if (stars) stars.rotation.z += 0.0005;
+  if (stars) {
+    stars.rotation.z += 0.0005;
 
-  if (camera) {
-    const movementRange = isMobile ? 0.5 : 0.2;
-    camera.rotation.x = (Math.PI / 2) + (currentY * movementRange);
-    camera.rotation.y = currentX * movementRange;
+    stars.rotation.y = currentX * 0.5;
+    stars.rotation.x = currentY * 0.5;
   }
+
   renderer.render(scene, camera);
 }
 
@@ -94,12 +99,14 @@ initStarfield();
 
 const heroSection = document.getElementById('home');
 const starfieldContainer = document.getElementById('starfield-container');
+
 const heroObserver = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    starfieldContainer.style.opacity = entry.isIntersecting ? '1' : '0.3';
+    starfieldContainer.style.opacity = entry.isIntersecting ? '1' : '0.4';
   });
-}, { threshold: 0.6 });
-heroObserver.observe(heroSection);
+}, { threshold: 0.1 });
+
+if (heroSection) heroObserver.observe(heroSection);
 
 const animatedElements = document.querySelectorAll('.animate-on-scroll');
 const scrollObserver = new IntersectionObserver((entries, observer) => {
@@ -122,35 +129,37 @@ const contactButton = document.getElementById('contact-submit-button');
 const contactStatus = document.getElementById('contact-status');
 const FORMSPREE_URL = 'https://formspree.io/f/xdkyzopw';
 
-contactForm.addEventListener('submit', async e => {
-  e.preventDefault();
-  const currentLang = localStorage.getItem('language') || 'tr';
-  contactButton.disabled = true;
-  contactButton.textContent = translations[currentLang]['contact.sending'] || 'Gönderiliyor...';
-  contactStatus.textContent = '';
+if (contactForm) {
+  contactForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const currentLang = localStorage.getItem('language') || 'tr';
+    contactButton.disabled = true;
+    contactButton.textContent = translations[currentLang]['contact.sending'] || 'Gönderiliyor...';
+    contactStatus.textContent = '';
 
-  try {
-    const response = await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      body: new FormData(e.target),
-      headers: { Accept: 'application/json' }
-    });
+    try {
+      const response = await fetch(FORMSPREE_URL, {
+        method: 'POST',
+        body: new FormData(e.target),
+        headers: { Accept: 'application/json' }
+      });
 
-    if (response.ok) {
-      contactStatus.textContent = translations[currentLang]['contact.success'];
-      contactStatus.className = 'text-center text-accent';
-      contactForm.reset();
-    } else {
-      throw new Error('Network response error');
+      if (response.ok) {
+        contactStatus.textContent = translations[currentLang]['contact.success'];
+        contactStatus.className = 'text-center text-accent';
+        contactForm.reset();
+      } else {
+        throw new Error('Network response error');
+      }
+    } catch (error) {
+      contactStatus.textContent = translations[currentLang]['contact.error'];
+      contactStatus.className = 'text-center text-red-500';
+    } finally {
+      contactButton.disabled = false;
+      contactButton.textContent = translations[currentLang]['contact.submitButton'];
     }
-  } catch (error) {
-    contactStatus.textContent = translations[currentLang]['contact.error'];
-    contactStatus.className = 'text-center text-red-500';
-  } finally {
-    contactButton.disabled = false;
-    contactButton.textContent = translations[currentLang]['contact.submitButton'];
-  }
-});
+  });
+}
 
 const translations = {
   tr: {
@@ -229,16 +238,18 @@ function setLanguage(lang) {
   document.documentElement.lang = lang;
   localStorage.setItem('language', lang);
 
-  if (lang === 'tr') {
-    langTrButton.classList.add('font-bold', 'text-accent');
-    langTrButton.classList.remove('font-normal', 'text-gray-400');
-    langEnButton.classList.add('font-normal', 'text-gray-400');
-    langEnButton.classList.remove('font-bold', 'text-accent');
-  } else {
-    langEnButton.classList.add('font-bold', 'text-accent');
-    langEnButton.classList.remove('font-normal', 'text-gray-400');
-    langTrButton.classList.add('font-normal', 'text-gray-400');
-    langTrButton.classList.remove('font-bold', 'text-accent');
+  if (langTrButton && langEnButton) {
+    if (lang === 'tr') {
+      langTrButton.classList.add('font-bold', 'text-accent');
+      langTrButton.classList.remove('font-normal', 'text-gray-400');
+      langEnButton.classList.add('font-normal', 'text-gray-400');
+      langEnButton.classList.remove('font-bold', 'text-accent');
+    } else {
+      langEnButton.classList.add('font-bold', 'text-accent');
+      langEnButton.classList.remove('font-normal', 'text-gray-400');
+      langTrButton.classList.add('font-normal', 'text-gray-400');
+      langTrButton.classList.remove('font-bold', 'text-accent');
+    }
   }
 
   document.querySelectorAll('[data-i18n-key]').forEach(el => {
@@ -251,8 +262,8 @@ function setLanguage(lang) {
   });
 }
 
-langTrButton.addEventListener('click', () => setLanguage('tr'));
-langEnButton.addEventListener('click', () => setLanguage('en'));
+if (langTrButton) langTrButton.addEventListener('click', () => setLanguage('tr'));
+if (langEnButton) langEnButton.addEventListener('click', () => setLanguage('en'));
 
 const GITHUB_USERNAME = 'littleborek';
 const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6&type=owner`;
@@ -261,6 +272,8 @@ async function fetchGitHubProjects(initialLang) {
   const grid = document.getElementById('projects-grid');
   const loader = document.getElementById('projects-loader');
   const t = translations[initialLang] || translations.tr;
+
+  if (!grid) return;
 
   try {
     const response = await fetch(GITHUB_API_URL);
@@ -301,6 +314,7 @@ async function fetchGitHubProjects(initialLang) {
   } catch (error) {
     console.error('GitHub API Error: ', error);
     if (loader) loader.remove();
+    if (grid) grid.innerHTML = `<p class="text-center text-red-400 w-full">${t['projects.error']}</p>`;
   }
 }
 
@@ -325,8 +339,8 @@ const mobileMenuBtn = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
 const toggleMenu = () => mobileMenu.classList.toggle('hidden');
 
-mobileMenuBtn.addEventListener('click', toggleMenu);
-document.getElementById('mobile-menu-close-button').addEventListener('click', toggleMenu);
+if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMenu);
+if (document.getElementById('mobile-menu-close-button')) document.getElementById('mobile-menu-close-button').addEventListener('click', toggleMenu);
 document.querySelectorAll('.mobile-menu-link').forEach(l => l.addEventListener('click', () => mobileMenu.classList.add('hidden')));
 
 async function fetchGitHubStats() {
@@ -334,12 +348,14 @@ async function fetchGitHubStats() {
     const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
     if (!res.ok) return;
     const data = await res.json();
-    document.getElementById('github-repos').textContent = data.public_repos;
-    document.getElementById('github-followers').textContent = data.followers;
+    const repoEl = document.getElementById('github-repos');
+    const followEl = document.getElementById('github-followers');
+    if (repoEl) repoEl.textContent = data.public_repos;
+    if (followEl) followEl.textContent = data.followers;
   } catch (e) { console.error(e); }
 }
 
 const savedLang = localStorage.getItem('language') || 'tr';
+setLanguage(savedLang);
 fetchGitHubProjects(savedLang);
 fetchGitHubStats();
-setLanguage(savedLang);

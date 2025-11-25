@@ -2,7 +2,7 @@
 <html lang="tr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <title>Berk ***REMOVED***- Kişisel Portföy</title>
     <meta name="description" content="Berk ***REMOVED***- Cloud & DevOps Engineer Portföyü. Docker, CI/CD, AWS ve Azure üzerine projelerimi ve yetkinliklerimi keşfedin.">
@@ -21,7 +21,12 @@
     <meta name="twitter:image" content="https://berkk.cloud/profile.jpg">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
@@ -30,7 +35,7 @@
                     colors: {
                         'accent': '#1abc9c',
                         'glass': 'rgba(255, 255, 255, 0.05)',
-                        'glass-border': 'rgba(255, 255, 255, 0.2)',
+                        'glass-border': 'rgba(255, 255, 255, 0.15)',
                     },
                     fontFamily: {
                         'sans': ['Inter', 'sans-serif']
@@ -41,35 +46,81 @@
     </script>
     
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        .frosted-glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1rem;
+        }
+        
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        body {
+            overscroll-behavior-y: none;
+        }
+
+        .scroll-arrow {
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateX(-50%) translateY(0);}
+            40% {transform: translateX(-50%) translateY(-10px);}
+            60% {transform: translateX(-50%) translateY(-5px);}
+        }
+        
+
+        .timeline-item {
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 2rem;
+        }
+        .timeline-dot {
+            position: absolute;
+            left: -9px;
+            top: 0;
+            background: #1abc9c;
+            border-radius: 50%;
+            width: 16px;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
 </head>
 
-<body class="bg-black text-gray-200 font-sans">
+<body class="bg-black text-gray-200 font-sans antialiased overflow-x-hidden">
 
     <div id="starfield-container" class="fixed top-0 left-0 w-full h-full -z-10 transition-opacity duration-1000 ease-in-out"></div>
 
-    <header class="fixed top-0 w-full z-50">
-        <nav class="frosted-glass border-b">
+    <header class="fixed top-0 w-full z-50 transition-all duration-300">
+        <nav class="frosted-glass border-b border-glass-border bg-black/30 backdrop-blur-md">
             <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-                <a href="#home" class="text-2xl font-bold hover:text-accent transition-colors">
+                <a href="#home" class="text-xl md:text-2xl font-bold hover:text-accent transition-colors tracking-tight">
                     Berk ***REMOVED***
                 </a>
-                <div class="hidden md:flex items-center space-x-6">
+                
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
                     <a href="#about" class="hover:text-accent transition-colors" data-i18n-key="nav.about">Hakkımda</a>
                     <a href="#skills" class="hover:text-accent transition-colors" data-i18n-key="nav.skills">Teknolojiler</a>
                     <a href="#experience" class="hover:text-accent transition-colors" data-i18n-key="nav.experience">Eğitim</a>
                     <a href="#projects" class="hover:text-accent transition-colors" data-i18n-key="nav.projects">Projeler</a>
                     <a href="#contact" class="hover:text-accent transition-colors" data-i18n-key="nav.contact">İletişim</a>
-                    <div class="h-6 w-px bg-glass-border"></div>
+                    
+                    <div class="h-4 w-px bg-gray-600"></div>
+                    
                     <div class="flex space-x-2 text-gray-400">
                         <button id="lang-tr" class="font-bold text-accent transition-colors hover:text-white">TR</button>
                         <span>/</span>
                         <button id="lang-en" class="font-normal transition-colors hover:text-white">EN</button>
                     </div>
                 </div>
-                <button id="mobile-menu-button" class="md:hidden text-gray-200">
+
+                <button id="mobile-menu-button" class="md:hidden text-gray-200 p-2 focus:outline-none">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                     </svg>
@@ -78,15 +129,15 @@
         </nav>
     </header>
 
-    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-screen bg-black bg-opacity-90 backdrop-blur-lg z-40 flex items-center justify-center hidden">
+    <div id="mobile-menu" class="fixed top-0 left-0 w-full h-[100dvh] bg-black/95 backdrop-blur-xl z-50 flex items-center justify-center hidden transition-opacity duration-300">
         <div class="flex flex-col items-center space-y-8">
-            <a href="#about" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.about">Hakkımda</a>
-            <a href="#skills" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.skills">Teknolojiler</a>
-            <a href="#experience" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.experience">Eğitim</a>
-            <a href="#projects" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.projects">Projeler</a>
-            <a href="#contact" class="text-3xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.contact">İletişim</a>
+            <a href="#about" class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.about">Hakkımda</a>
+            <a href="#skills" class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.skills">Teknolojiler</a>
+            <a href="#experience" class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.experience">Eğitim</a>
+            <a href="#projects" class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.projects">Projeler</a>
+            <a href="#contact" class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link" data-i18n-key="nav.contact">İletişim</a>
         </div>
-        <button id="mobile-menu-close-button" class="absolute top-7 right-7 text-gray-400 hover:text-white">
+        <button id="mobile-menu-close-button" class="absolute top-6 right-6 text-gray-400 hover:text-white p-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -95,87 +146,87 @@
 
     <main class="relative z-10">
 
-        <section id="home" class="h-screen flex items-center justify-center text-center relative px-4">
-            <div>
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 text-white">
-                    <span data-i18n-key="hero.greeting">Merhaba, ben</span> <span class="typing-effect text-accent">Berk</span>
+        <section id="home" class="h-[100dvh] min-h-[600px] flex items-center justify-center text-center relative px-4 pt-16">
+            <div class="max-w-3xl">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 text-white leading-tight">
+                    <span data-i18n-key="hero.greeting">Merhaba, ben</span> <br class="md:hidden" />
+                    <span class="typing-effect text-accent">Berk</span>
                 </h1>
-                <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-8" data-i18n-key="hero.subtitle">
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-300 mb-10 font-light" data-i18n-key="hero.subtitle">
                     Cloud & DevOps Engineer
                 </p>
-                <div class="flex justify-center space-x-6">
+                <div class="flex justify-center space-x-8">
                     <a href="https://github.com/littleborek" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-transform transform hover:scale-110" aria-label="GitHub">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.108-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.91 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
                     </a>
                     <a href="https://www.linkedin.com/in/berk-***REMOVED***/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent transition-transform transform hover:scale-110" aria-label="LinkedIn">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                     </a>
                 </div>
             </div>
-            <a href="#about" class="absolute bottom-10 left-1/2 -translate-x-1/2 scroll-arrow" aria-label="Aşağı kaydır">
+            <a href="#about" class="absolute bottom-10 left-1/2 -translate-x-1/2 scroll-arrow p-4" aria-label="Aşağı kaydır">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-gray-400 hover:text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                 </svg>
             </a>
         </section>
 
-        <section id="about" class="py-32 px-6 bg-transparent">
+        <section id="about" class="py-24 md:py-32 px-4 md:px-6 bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
-                <div class="frosted-glass p-10">
+                <div class="frosted-glass p-6 md:p-10">
                     <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="about.title">Hakkımda</h2>
                     <div class="flex flex-col md:flex-row items-center gap-10">
-                        <img src="profile.jpg" alt="Berk***REMOVED***" class="w-48 h-48 md:w-64 md:h-64 rounded-full object-cover shadow-lg border-4 border-glass-border">
+                        <img src="profile.jpg" alt="Berk***REMOVED***" class="w-40 h-40 md:w-64 md:h-64 rounded-full object-cover shadow-2xl border-4 border-glass-border shrink-0">
                         <div class="text-lg text-center md:text-left">
-                            <p class="mb-4" data-i18n-key="about.p1"></p>
-                            <p class="mb-4" data-i18n-key="about.p2"></p>
-                            <p data-i18n-key="about.p3"></p>
+                            <p class="mb-4 text-gray-300" data-i18n-key="about.p1"></p>
+                            <p class="mb-4 text-gray-300" data-i18n-key="about.p2"></p>
+                            <p class="text-gray-300" data-i18n-key="about.p3"></p>
                             
-                            <div class="flex flex-wrap justify-center md:justify-start gap-4 mt-6">
-                                <div class="frosted-glass p-4 rounded-lg text-center min-w-[120px]">
-                                    <span class="text-3xl font-bold text-accent" id="github-repos">--</span>
-                                    <p class="text-sm text-gray-400" data-i18n-key="stats.repos">Public Repos</p>
+                            <div class="flex flex-wrap justify-center md:justify-start gap-4 mt-8">
+                                <div class="bg-black/30 border border-glass-border p-4 rounded-lg text-center min-w-[120px]">
+                                    <span class="text-3xl font-bold text-accent block" id="github-repos">--</span>
+                                    <span class="text-xs text-gray-400 uppercase tracking-wider" data-i18n-key="stats.repos">Public Repos</span>
                                 </div>
-                                <div class="frosted-glass p-4 rounded-lg text-center min-w-[120px]">
-                                    <span class="text-3xl font-bold text-accent" id="github-followers">--</span>
-                                    <p class="text-sm text-gray-400" data-i18n-key="stats.followers">Takipçi</p>
+                                <div class="bg-black/30 border border-glass-border p-4 rounded-lg text-center min-w-[120px]">
+                                    <span class="text-3xl font-bold text-accent block" id="github-followers">--</span>
+                                    <span class="text-xs text-gray-400 uppercase tracking-wider" data-i18n-key="stats.followers">Takipçi</span>
                                 </div>
                             </div>
-                            
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="skills" class="py-32 px-6 bg-transparent">
+        <section id="skills" class="py-24 md:py-32 px-4 md:px-6 bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
-                <div class="frosted-glass p-10">
+                <div class="frosted-glass p-6 md:p-10">
                     <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="skills.title">Yetkinliklerim</h2>
                     <div class="flex flex-wrap justify-center gap-3">
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">Java</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">SQL</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">Linux</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">Git & GitHub</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">Docker</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">GitHub Actions</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">AWS</span>
-                        <span class="bg-accent text-black font-semibold px-4 py-2 rounded-full text-sm">Azure</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">Java</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">SQL</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">Linux</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">Git & GitHub</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">Docker</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">GitHub Actions</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">AWS</span>
+                        <span class="bg-accent/10 border border-accent/20 text-accent font-semibold px-5 py-2 rounded-full text-sm hover:bg-accent hover:text-black transition-colors cursor-default">Azure</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="experience" class="py-32 px-6 bg-transparent">
+        <section id="experience" class="py-24 md:py-32 px-4 md:px-6 bg-transparent">
             <div class="container mx-auto max-w-4xl animate-on-scroll">
-                <div class="frosted-glass p-10">
+                <div class="frosted-glass p-6 md:p-10">
                     <h2 class="text-3xl font-bold mb-12 text-center text-accent scramble-effect" data-i18n-key="experience.title">Eğitim</h2>
-                    <div class="relative">
+                    <div class="relative ml-4 md:ml-0">
                         <div class="timeline-item">
                             <div class="timeline-dot">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v5.556" /></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 14l9-5-9-5-9 5 9 5z" /><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0v5.556" /></svg>
                             </div>
                             <time class="text-sm font-semibold text-gray-400 mb-1 block" data-i18n-key="experience.item1.time">Eylül 2023 - Günümüz</time>
-                            <h3 class="text-xl font-bold text-white" data-i18n-key="experience.item1.title">Lisans Derecesi, Bilgisayar Mühendisliği</h3>
+                            <h3 class="text-xl font-bold text-white mb-1" data-i18n-key="experience.item1.title">Lisans Derecesi, Bilgisayar Mühendisliği</h3>
                             <p class="text-gray-300" data-i18n-key="experience.item1.company">Akdeniz Üniversitesi, Antalya</p>
                         </div>
                     </div>
@@ -183,40 +234,11 @@
             </div>
         </section>
         
-        <section id="projects" class="py-32 px-6 bg-transparent">
+        <section id="projects" class="py-24 md:py-32 px-4 md:px-6 bg-transparent">
             <div class="container mx-auto max-w-5xl animate-on-scroll">
-                <div class="frosted-glass p-10">
+                <div class="frosted-glass p-6 md:p-10">
                     <h2 class="text-3xl font-bold mb-12 text-center text-accent scramble-effect" data-i18n-key="projects.title">Projelerim</h2>
-                    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8 min-h-[200px] relative">
-                        
-                        <a href="https://github.com/littleborek/urlshortener" target="_blank" class="block frosted-glass p-6 transform transition-transform duration-300 hover:scale-105 hover:border-accent border border-transparent">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-white truncate pr-4">urlshortener</h3>
-                                <div class="flex items-center text-sm text-gray-400 flex-shrink-0 ml-2">
-                                    <span>★ Star</span>
-                                </div>
-                            </div>
-                            <p class="text-gray-300 mb-4 h-20 overflow-hidden text-ellipsis">
-                                Cloudflare Workers ve KV Storage kullanan, tarayıcı eklentisi entegreli sunucusuz (serverless) URL kısaltma servisi.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-gray-700 text-accent text-xs font-semibold px-2.5 py-0.5 rounded">JavaScript</span>
-                                <span class="bg-gray-800 text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded">Cloudflare</span>
-                            </div>
-                        </a>
-
-                        <a href="https://github.com/littleborek/berk-***REMOVED***-portfolilo" target="_blank" class="block frosted-glass p-6 transform transition-transform duration-300 hover:scale-105 hover:border-accent border border-transparent">
-                            <div class="flex justify-between items-start mb-2">
-                                <h3 class="text-2xl font-bold text-white truncate pr-4">berk-***REMOVED***-portfolio</h3>
-                            </div>
-                            <p class="text-gray-300 mb-4 h-20 overflow-hidden text-ellipsis">
-                                Modern portfolio site built with Tailwind CSS, focused on CI/CD pipelines.
-                            </p>
-                            <div class="flex flex-wrap gap-2">
-                                <span class="bg-gray-700 text-accent text-xs font-semibold px-2.5 py-0.5 rounded">HTML/CSS</span>
-                            </div>
-                        </a>
-
+                    <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 min-h-[200px] relative">
                         <div id="projects-loader" class="absolute inset-0 flex justify-center items-center">
                             <svg class="animate-spin h-10 w-10 text-accent" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -229,11 +251,11 @@
             </div>
         </section>
 
-        <section id="contact" class="py-32 px-6 bg-transparent">
+        <section id="contact" class="py-24 md:py-32 px-4 md:px-6 bg-transparent">
             <div class="container mx-auto max-w-3xl animate-on-scroll">
-                <div class="frosted-glass p-10">
-                    <h2 class="text-3xl font-bold mb-8 text-center text-accent scramble-effect" data-i18n-key="contact.title">İletişime Geçin</h2>
-                    <p class="text-center text-gray-300 mb-8" data-i18n-key="contact.subtitle">
+                <div class="frosted-glass p-6 md:p-10">
+                    <h2 class="text-3xl font-bold mb-4 text-center text-accent scramble-effect" data-i18n-key="contact.title">İletişime Geçin</h2>
+                    <p class="text-center text-gray-300 mb-10" data-i18n-key="contact.subtitle">
                         Benimle iletişime geçmekten çekinmeyin!
                     </p>
                     
@@ -241,26 +263,26 @@
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-300 mb-2" data-i18n-key="contact.nameLabel">Adınız</label>
                             <input type="text" id="name" name="name" required
-                                   class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none">
+                                   class="w-full bg-black/40 border border-glass-border rounded-lg p-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-accent focus:border-transparent focus:outline-none transition-all">
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium text-gray-300 mb-2" data-i18n-key="contact.emailLabel">E-posta Adresiniz</label>
                             <input type="email" id="email" name="email" required
-                                   class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none">
+                                   class="w-full bg-black/40 border border-glass-border rounded-lg p-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-accent focus:border-transparent focus:outline-none transition-all">
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-medium text-gray-300 mb-2" data-i18n-key="contact.messageLabel">Mesajınız</label>
                             <textarea id="message" name="message" rows="5" required
-                                      class="w-full bg-glass-border border border-glass-border rounded-md p-3 text-white placeholder-gray-400 focus:ring-accent focus:border-accent focus:outline-none"></textarea>
+                                      class="w-full bg-black/40 border border-glass-border rounded-lg p-3 text-white placeholder-gray-500 focus:ring-2 focus:ring-accent focus:border-transparent focus:outline-none transition-all"></textarea>
                         </div>
-                        <div class="text-center">
+                        <div class="text-center pt-4">
                             <button type="submit" id="contact-submit-button"
-                                    class="bg-accent text-black font-bold py-3 px-8 rounded-full hover:bg-opacity-80 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    class="bg-accent text-black font-bold py-3 px-10 rounded-full hover:bg-white hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-accent/20"
                                     data-i18n-key="contact.submitButton">
                                 Gönder
                             </button>
                         </div>
-                        <div id="contact-status" class="text-center mt-4"></div>
+                        <div id="contact-status" class="text-center mt-4 h-6 text-sm"></div>
                     </form>
                 </div>
             </div>
