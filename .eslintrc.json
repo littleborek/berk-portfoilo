@@ -19,7 +19,7 @@
     "import/extensions": [0, "always"],
     "quotes": ["error", "single"],
     "semi": ["error", "always"],
-    "indent": ["error", 2, { "SwitchCase": 1 }], /* 2-space indentation standard */
+    "indent": ["error", 2, { "SwitchCase": 1 }], 
     "comma-dangle": ["error", "never"],
     "one-var": "off",
     "one-var-declaration-per-line": "off",

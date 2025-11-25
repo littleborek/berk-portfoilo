@@ -13,7 +13,10 @@
   "devDependencies": {
     "eslint": "^8.56.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "prettier": "^3.6.2",
     "sharp": "^0.33.5",
     "stylelint": "^16.2.1",
     "stylelint-config-standard": "^36.0.0",
