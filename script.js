@@ -234,18 +234,23 @@ async function fetchGitHubProjects(initialLang) {
     const response = await fetch(GITHUB_API_URL);
 
     if (!response.ok) {
-      throw new Error(t['projects.error']);
+      throw new Error(t['projects.error'] || 'API Hatası');
     }
 
     const repos = await response.json();
+
     if (repos.length > 0) {
       grid.innerHTML = '';
+
       repos.forEach(repo => {
         const descText = repo.description || t['projects.nodesc'];
+
         const topicsHTML = (repo.topics || []).slice(0, 3).map(topic => `<span class='bg-gray-800 text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded'>${topic}</span>`).join('');
+
         const langHTML = repo.language
           ? `<span class='bg-gray-700 text-accent text-xs font-semibold px-2.5 py-0.5 rounded'>${repo.language}</span>`
           : '';
+
         grid.innerHTML += `
                 <a href='${repo.html_url}' target='_blank' class='block frosted-glass p-6 transition-transform duration-300 hover:scale-105 hover:border-accent border border-transparent'>
                     <div class='flex justify-between items-start mb-2'>
@@ -259,6 +264,7 @@ async function fetchGitHubProjects(initialLang) {
                 </a>`;
       });
     }
+
     if (loader) loader.remove();
   } catch (error) {
     console.error('GitHub API Error: ', error);
