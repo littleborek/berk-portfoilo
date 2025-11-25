@@ -4,9 +4,9 @@
   "description": "Portfolio site for Berk Kocaborek, refactored for professional CI pipeline.",
   "scripts": {
     "lint:js": "eslint script.js",
-    "lint:css": "stylelint main.css",
+    "lint:css": "stylelint style.css",
     "lint": "npm run lint:js && npm run lint:css",
-    "build:css": "tailwindcss -i ./main.css -o ./dist/app.css --minify",
+    "build:css": "tailwindcss -i ./style.css -o ./dist/app.css --minify",
     "optimize:img": "node ./image-optimizer.js",
     "build": "npm run build:css && npm run optimize:img"
   },
