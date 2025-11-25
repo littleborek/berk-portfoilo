@@ -25,7 +25,7 @@ function initStarfield() {
 
   const starCount = isMobile ? 2000 : 8000;
   const positions = new Float32Array(starCount * 3);
-  
+
   for (let i = 0; i < starCount; i++) {
     positions[i * 3] = (Math.random() - 0.5) * 1000;
     positions[i * 3 + 1] = (Math.random() - 0.5) * 1000;
@@ -34,7 +34,7 @@ function initStarfield() {
 
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  
+
   const material = new THREE.PointsMaterial({
     size: isMobile ? 0.15 : 0.02,
     color: 0xffffff,
@@ -46,7 +46,7 @@ function initStarfield() {
   scene.add(stars);
 
   window.addEventListener('resize', onWindowResize, false);
-  
+
   if (isMobile && window.DeviceOrientationEvent) {
     window.addEventListener('deviceorientation', onDeviceOrientation, false);
   } else {
@@ -62,9 +62,10 @@ function onMouseMove(event) {
 }
 
 function onDeviceOrientation(event) {
-  let x = event.gamma; 
-  let y = event.beta;
-  if (x > 90) x = 90; if (x < -90) x = -90;
+  let x = event.gamma;
+  const y = event.beta; 
+  if (x > 90) x = 90;
+  if (x < -90) x = -90;
   targetX = x / 90;
   targetY = (y - 45) / 90;
 }
@@ -75,9 +76,9 @@ function animate() {
   currentY += (targetY - currentY) * 0.05;
 
   if (stars) stars.rotation.z += 0.0005;
-  
+
   if (camera) {
-    const movementRange = isMobile ? 0.5 : 0.2; 
+    const movementRange = isMobile ? 0.5 : 0.2;
     camera.rotation.x = (Math.PI / 2) + (currentY * movementRange);
     camera.rotation.y = currentX * movementRange;
   }
@@ -92,6 +93,7 @@ function onWindowResize() {
 
 initStarfield();
 
+
 const heroSection = document.getElementById('home');
 const starfieldContainer = document.getElementById('starfield-container');
 const heroObserver = new IntersectionObserver(entries => {
@@ -100,6 +102,7 @@ const heroObserver = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.6 });
 heroObserver.observe(heroSection);
+
 
 const animatedElements = document.querySelectorAll('.animate-on-scroll');
 const scrollObserver = new IntersectionObserver((entries, observer) => {
@@ -156,40 +159,70 @@ contactForm.addEventListener('submit', async e => {
 
 const translations = {
   tr: {
-    'nav.about': 'Hakkımda', 'nav.skills': 'Teknolojiler', 'nav.experience': 'Eğitim', 'nav.projects': 'Projeler', 'nav.contact': 'İletişim',
-    'hero.greeting': 'Merhaba, ben', 'hero.subtitle': 'Cloud & DevOps Engineer',
+    'nav.about': 'Hakkımda',
+    'nav.skills': 'Teknolojiler',
+    'nav.experience': 'Eğitim',
+    'nav.projects': 'Projeler',
+    'nav.contact': 'İletişim',
+    'hero.greeting': 'Merhaba, ben',
+    'hero.subtitle': 'Cloud & DevOps Engineer',
     'about.title': 'Hakkımda',
     'about.p1': 'Merhaba! Ben Berk, Akdeniz Üniversitesi’nde İngilizce Bilgisayar Mühendisliği öğrencisiyim. Cloud ve DevOps alanlarında kendimi geliştiriyorum.',
     'about.p2': 'Projelerimi her zaman pratik ve etkili çözümler üretmek için tasarlıyorum.',
     'about.p3': 'Benimle iletişime geçmekten çekinmeyin.',
-    'skills.title': 'Yetkinliklerim', 'experience.title': 'Eğitim',
-    'experience.item1.time': 'Eylül 2023 - Günümüz', 'experience.item1.title': 'Lisans Derecesi, Bilgisayar Mühendisliği', 'experience.item1.company': 'Akdeniz Üniversitesi, Antalya',
-    'projects.title': 'Projelerim', 
+    'skills.title': 'Yetkinliklerim',
+    'experience.title': 'Eğitim',
+    'experience.item1.time': 'Eylül 2023 - Günümüz',
+    'experience.item1.title': 'Lisans Derecesi, Bilgisayar Mühendisliği',
+    'experience.item1.company': 'Akdeniz Üniversitesi, Antalya',
+    'projects.title': 'Projelerim',
     'projects.nodesc': 'Bu proje için henüz bir açıklama eklenmemiş.',
     'projects.error': 'Projeler yüklenirken bir hata oluştu.',
     'projects.none': 'Gösterilecek herkese açık proje bulunamadı.',
-    'contact.title': 'İletişime Geçin', 'contact.subtitle': 'Benimle iletişime geçmekten çekinmeyin!',
-    'contact.nameLabel': 'Adınız', 'contact.emailLabel': 'E-posta Adresiniz', 'contact.messageLabel': 'Mesajınız',
-    'contact.submitButton': 'Gönder', 'contact.sending': 'Gönderiliyor...', 'contact.success': 'Mesajınız için teşekkürler!', 'contact.error': 'Bir hata oluştu.',
-    'stats.repos': 'Public Repos', 'stats.followers': 'Takipçi'
+    'contact.title': 'İletişime Geçin',
+    'contact.subtitle': 'Benimle iletişime geçmekten çekinmeyin!',
+    'contact.nameLabel': 'Adınız',
+    'contact.emailLabel': 'E-posta Adresiniz',
+    'contact.messageLabel': 'Mesajınız',
+    'contact.submitButton': 'Gönder',
+    'contact.sending': 'Gönderiliyor...',
+    'contact.success': 'Mesajınız için teşekkürler!',
+    'contact.error': 'Bir hata oluştu.',
+    'stats.repos': 'Public Repos',
+    'stats.followers': 'Takipçi'
   },
   en: {
-    'nav.about': 'About', 'nav.skills': 'Skills', 'nav.experience': 'Education', 'nav.projects': 'Projects', 'nav.contact': 'Contact',
-    'hero.greeting': 'Hello, I am', 'hero.subtitle': 'Cloud & DevOps Engineer',
+    'nav.about': 'About',
+    'nav.skills': 'Skills',
+    'nav.experience': 'Education',
+    'nav.projects': 'Projects',
+    'nav.contact': 'Contact',
+    'hero.greeting': 'Hello, I am',
+    'hero.subtitle': 'Cloud & DevOps Engineer',
     'about.title': 'About Me',
     'about.p1': 'Hello! I\'m Berk, a Computer Engineering student at Akdeniz University.',
     'about.p2': 'I design my projects to deliver practical solutions.',
     'about.p3': 'Feel free to reach out.',
-    'skills.title': 'My Skills', 'experience.title': 'Education',
-    'experience.item1.time': 'September 2023 - Present', 'experience.item1.title': 'BSc in Computer Engineering', 'experience.item1.company': 'Akdeniz University, Antalya',
+    'skills.title': 'My Skills',
+    'experience.title': 'Education',
+    'experience.item1.time': 'September 2023 - Present',
+    'experience.item1.title': 'BSc in Computer Engineering',
+    'experience.item1.company': 'Akdeniz University, Antalya',
     'projects.title': 'My Projects',
-    'projects.nodesc': 'No description provided.', 
+    'projects.nodesc': 'No description provided.',
     'projects.error': 'An error occurred while loading projects.',
     'projects.none': 'No public projects found.',
-    'contact.title': 'Get In Touch', 'contact.subtitle': 'Drop me a line!',
-    'contact.nameLabel': 'Your Name', 'contact.emailLabel': 'Your Email', 'contact.messageLabel': 'Your Message',
-    'contact.submitButton': 'Send', 'contact.sending': 'Sending...', 'contact.success': 'Thank you!', 'contact.error': 'Error occurred.',
-    'stats.repos': 'Public Repos', 'stats.followers': 'Followers'
+    'contact.title': 'Get In Touch',
+    'contact.subtitle': 'Drop me a line!',
+    'contact.nameLabel': 'Your Name',
+    'contact.emailLabel': 'Your Email',
+    'contact.messageLabel': 'Your Message',
+    'contact.submitButton': 'Send',
+    'contact.sending': 'Sending...',
+    'contact.success': 'Thank you!',
+    'contact.error': 'Error occurred.',
+    'stats.repos': 'Public Repos',
+    'stats.followers': 'Followers'
   }
 };
 
@@ -200,7 +233,6 @@ function setLanguage(lang) {
   if (!translations[lang]) return;
   document.documentElement.lang = lang;
   localStorage.setItem('language', lang);
-
 
   if (lang === 'tr') {
     langTrButton.classList.add('font-bold', 'text-accent');
@@ -213,7 +245,6 @@ function setLanguage(lang) {
     langTrButton.classList.add('font-normal', 'text-gray-400');
     langTrButton.classList.remove('font-bold', 'text-accent');
   }
-
 
   document.querySelectorAll('[data-i18n-key]').forEach(el => {
     const key = el.getAttribute('data-i18n-key');
@@ -235,7 +266,6 @@ const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?so
 async function fetchGitHubProjects(initialLang) {
   const grid = document.getElementById('projects-grid');
   const loader = document.getElementById('projects-loader');
-
   const t = translations[initialLang] || translations.tr;
 
   try {
@@ -244,20 +274,19 @@ async function fetchGitHubProjects(initialLang) {
     const repos = await response.json();
 
     if (repos.length > 0) {
-        grid.innerHTML = ''; 
-        repos.forEach(repo => {
+      grid.innerHTML = '';
+      repos.forEach(repo => {
+        const descText = repo.description || t['projects.nodesc'];
 
-            const descText = repo.description || t['projects.nodesc'];
-            
-            const topicsHTML = (repo.topics || []).slice(0, 3).map(topic => 
-                `<span class='bg-gray-800 text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded'>${topic}</span>`
-            ).join('');
+        const topicsHTML = (repo.topics || []).slice(0, 3).map(topic =>
+          `<span class='bg-gray-800 text-gray-300 text-xs font-semibold px-2.5 py-0.5 rounded'>${topic}</span>`
+        ).join('');
 
-            const langHTML = repo.language 
-                ? `<span class='bg-gray-700 text-accent text-xs font-semibold px-2.5 py-0.5 rounded'>${repo.language}</span>` 
-                : '';
+        const langHTML = repo.language
+          ? `<span class='bg-gray-700 text-accent text-xs font-semibold px-2.5 py-0.5 rounded'>${repo.language}</span>`
+          : '';
 
-            grid.innerHTML += `
+        grid.innerHTML += `
                 <a href='${repo.html_url}' target='_blank' class='block frosted-glass p-6 transition-transform duration-300 hover:scale-105 hover:border-accent border border-transparent'>
                     <div class='flex justify-between items-start mb-2'>
                         <h3 class='text-2xl font-bold text-white truncate pr-4'>${repo.name}</h3>
@@ -268,31 +297,31 @@ async function fetchGitHubProjects(initialLang) {
                     <p class='text-gray-300 mb-4 h-20 overflow-hidden text-ellipsis'>${descText}</p>
                     <div class='flex flex-wrap gap-2'>${langHTML}${topicsHTML}</div>
                 </a>`;
-        });
+      });
     }
   } catch (error) {
     console.log("GitHub API Hatası (Statik projeler kalacak):", error);
-    if(loader) loader.remove();
+    if (loader) loader.remove();
   }
 }
+
 
 function scrambleEffect(element) {
   const originalText = element.textContent;
   const chars = '!<>-_\\/[]{}—=+*^?#';
   let iterations = 0;
-  
+
   const interval = setInterval(() => {
     element.textContent = originalText.split('')
       .map((char, index) => {
         if (index < iterations) return originalText[index];
         return chars[Math.floor(Math.random() * chars.length)];
       }).join('');
-    
+
     if (iterations >= originalText.length) clearInterval(interval);
     iterations += 1 / 3;
   }, 30);
 }
-
 
 const mobileMenuBtn = document.getElementById('mobile-menu-button');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -313,9 +342,7 @@ async function fetchGitHubStats() {
   } catch (e) { console.error(e); }
 }
 
-
 const savedLang = localStorage.getItem('language') || 'tr';
-
 fetchGitHubProjects(savedLang);
 fetchGitHubStats();
 setLanguage(savedLang);
