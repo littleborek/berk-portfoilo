@@ -6,7 +6,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Buzlu Cam Efekti */
+
 .frosted-glass {
   background-color: transparent; 
   backdrop-filter: blur(12px); 
@@ -23,7 +23,7 @@ nav.frosted-glass {
   border-top: 0;
 }
 
-/* Harf Harf Yazma Animasyonu */
+
 .typing-effect {
   width: 4.5ch;
   white-space: nowrap;
@@ -40,7 +40,6 @@ nav.frosted-glass {
   50% { border-color: transparent; }
 }
 
-/* Aşağı Kaydırma Oku Animasyonu */
 .scroll-arrow {
   animation: bounce 2s infinite;
 }
@@ -59,7 +58,6 @@ nav.frosted-glass {
   }
 }
 
-/* Deneyim Zaman Çizelgesi Stilleri */
 .timeline-item {
   position: relative;
   padding-left: 2.5rem;
@@ -94,7 +92,7 @@ nav.frosted-glass {
   z-index: 10;
 }
 
-/* IntersectionObserver Kaydırma Animasyonu */
+
 .animate-on-scroll {
   opacity: 0;
   transform: translateY(30px);
