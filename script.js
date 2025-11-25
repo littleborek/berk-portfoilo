@@ -227,10 +227,16 @@ const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?so
 async function fetchGitHubProjects(initialLang) {
   const grid = document.getElementById('projects-grid');
   const loader = document.getElementById('projects-loader');
+
   const t = translations[initialLang] || translations.tr;
+
   try {
     const response = await fetch(GITHUB_API_URL);
-    if (!response.ok) throw new Error('API Error');
+
+    if (!response.ok) {
+      throw new Error(t['projects.error']);
+    }
+
     const repos = await response.json();
     if (repos.length > 0) {
       grid.innerHTML = '';
@@ -253,8 +259,9 @@ async function fetchGitHubProjects(initialLang) {
                 </a>`;
       });
     }
+    if (loader) loader.remove();
   } catch (error) {
-    console.log('GitHub API Hatası (Statik projeler kalacak):', error);
+    console.error('GitHub API Error: ', error);
     if (loader) loader.remove();
   }
 }
