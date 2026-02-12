@@ -51,7 +51,7 @@ The core value of this repository lies in its CI/CD process, which runs on every
 Bu versiyon, yukarıdaki içeriğin çevirisidir:
 
 ```markdown
-# 🚀 Berk ***REMOVED***- Cloud & DevOps Portföy Sitesi
+# 🚀 Berk - Cloud & DevOps Portföy Sitesi
 
 Bu proje, modern web geliştirme ve DevOps pratiklerini birleştiren kişisel bir portföydür. Sürekli Entegrasyon (CI), otomatik performans optimizasyonu ve Cloudflare Pages dağıtım hattı entegrasyonu ile teknik yeteneklerimi sergilemektedir.
 
