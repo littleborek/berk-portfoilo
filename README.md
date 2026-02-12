@@ -36,7 +36,7 @@ The core value of this repository lies in its CI/CD process, which runs on every
 
 ## 📸 Project Screenshot
 
-<img width="2560" height="5072" alt="Screenshot 2025-11-15 at 23-49-07 Berk ***REMOVED***- Kişisel Portföy" src="https://github.com/user-attachments/assets/264ed587-5e66-4606-8071-08e7a356502f" />
+<img width="2560" height="5072" alt="Screenshot 2025-11-15 at 23-49-07 Berk Kocabörek - Kişisel Portföy" src="https://github.com/user-attachments/assets/264ed587-5e66-4606-8071-08e7a356502f" />
 
 
 
