@@ -1,4 +1,4 @@
-# 🚀 Berk ***REMOVED***- Cloud & DevOps Portfolio
+# 🚀 Berk - Cloud & DevOps Portfolio
 
 This project is a modern, high-performance digital portfolio designed to showcase engineering skills alongside aesthetics. It moves beyond static web development by integrating **Continuous Integration (CI)**, **automated performance optimization**, and a **Cloudflare Pages deployment pipeline**.
 
