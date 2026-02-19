@@ -8,3 +8,11 @@ npm-debug.log
 # İşletim sistemi ve editör dosyaları
 .DS_Store
 *.log
+
+# Cloudflare local secrets
+.dev.vars
+.wrangler/
+
+# Personal data files
+linkedin.pdf
+summary.txt

@@ -297,7 +297,7 @@ async function fetchGitHubProjects(initialLang) {
           : '';
 
         grid.innerHTML += `
-                <a href='${repo.html_url}' target='_blank' class='block frosted-glass p-6 transition-transform duration-300 hover:scale-105 hover:border-accent border border-transparent'>
+                <a href='${repo.html_url}' target='_blank' class='block frosted-glass p-6 transition-transform duration-300 hover:scale-105 hover:border-accent border border-transparent' data-description='${(repo.description || '').replace(/'/g, '&#39;')}' data-topics='${(repo.topics || []).join(' ')}' data-language='${repo.language || ''}'>
                     <div class='flex justify-between items-start mb-2'>
                         <h3 class='text-2xl font-bold text-white truncate pr-4'>${repo.name}</h3>
                         <div class='flex items-center text-sm text-gray-400 ml-2 flex-shrink-0'>
