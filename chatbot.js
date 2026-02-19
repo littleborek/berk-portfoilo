@@ -51,7 +51,11 @@
     };
 
     function getLang() {
-        return localStorage.getItem('language') || 'tr';
+        try {
+            return localStorage.getItem('language') || 'tr';
+        } catch (e) {
+            return 'tr';
+        }
     }
 
     function t(key) {
