@@ -270,10 +270,10 @@ nav.frosted-glass {
   display: flex;
   gap: 0.5rem;
   max-width: 88%;
-  animation: chatFadeIn 0.3s ease;
+  animation: chat-fade-in 0.3s ease;
 }
 
-@keyframes chatFadeIn {
+@keyframes chat-fade-in {
   from {
     opacity: 0;
     transform: translateY(8px);
@@ -292,6 +292,15 @@ nav.frosted-glass {
 
 .chat-message-bot {
   align-self: flex-start;
+}
+
+.chat-msg-content {
+  padding: 0.625rem 0.875rem;
+  border-radius: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .chat-message-system {
@@ -320,15 +329,6 @@ nav.frosted-glass {
   color: #1abc9c;
   flex-shrink: 0;
   margin-top: 2px;
-}
-
-.chat-msg-content {
-  padding: 0.625rem 0.875rem;
-  border-radius: 1rem;
-  font-size: 0.85rem;
-  line-height: 1.5;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
 }
 
 .chat-message-user .chat-msg-content {
@@ -370,7 +370,7 @@ nav.frosted-glass {
   height: 7px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.3);
-  animation: typingDot 1.4s infinite ease-in-out;
+  animation: typing-dot 1.4s infinite ease-in-out;
 }
 
 .typing-indicator span:nth-child(2) {
@@ -381,7 +381,7 @@ nav.frosted-glass {
   animation-delay: 0.4s;
 }
 
-@keyframes typingDot {
+@keyframes typing-dot {
 
   0%,
   60%,
@@ -440,7 +440,7 @@ nav.frosted-glass {
   padding: 0.6rem 0.875rem;
   color: #fff;
   font-size: 0.85rem;
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   outline: none;
   transition: border-color 0.2s;
 }
@@ -478,7 +478,7 @@ nav.frosted-glass {
 }
 
 /* Mobile responsive */
-@media (max-width: 480px) {
+@media (width <=480px) {
   .chatbot-window {
     width: calc(100vw - 1.5rem);
     right: 0.75rem;
