@@ -1,9 +1,13 @@
 {
   "root": true,
-  "env": { 
-    "browser": true, 
+  "env": {
+    "browser": true,
     "es2021": true,
-    "node": true  
+    "node": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
   "extends": "airbnb-base",
   "globals": {
@@ -16,18 +20,55 @@
     "no-console": "off",
     "no-unused-vars": "warn",
     "no-use-before-define": "off",
-    "import/extensions": [0, "always"],
-    "quotes": ["error", "single"],
-    "semi": ["error", "always"],
-    "indent": ["error", 2, { "SwitchCase": 1 }], 
-    "comma-dangle": ["error", "never"],
+    "import/extensions": [
+      0,
+      "always"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "indent": [
+      "error",
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
     "one-var": "off",
     "one-var-declaration-per-line": "off",
     "no-plusplus": "off",
-    "no-param-reassign": ["error", { "props": false }],
-    "eol-last": ["error", "always"],
-    "no-multiple-empty-lines": ["error", { "max": 1 }],
-    "arrow-parens": ["error", "as-needed"],
-    "quote-props": ["error", "as-needed"]
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "eol-last": [
+      "error",
+      "always"
+    ],
+    "no-multiple-empty-lines": [
+      "error",
+      {
+        "max": 1
+      }
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "quote-props": [
+      "error",
+      "as-needed"
+    ]
   }
 }

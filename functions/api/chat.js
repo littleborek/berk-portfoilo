@@ -59,6 +59,7 @@ const SYSTEM_PROMPTS = {
 5. Berk'in kişisel bilgilerini (telefon, TC, adres vb.) paylaşma.
 6. Emoji kullanabilirsin ama abartma (1-2 tane yeterli).
 7. Türkçe cevap ver.
+8. Kullanıcı iletişim kurmak istediğinde mutlaka kocaborek.berkk@gmail.com adresini veya iletişim formunu öner.
 
 ## MESAJ İLETME (RELAY) KURALLARI — ÇOK ÖNEMLİ:
 
@@ -165,6 +166,7 @@ Bir cevaba birden fazla etiket ekleyebilirsin. Her etiket ayrı satırda olmalı
 5. Don't share Berk's personal information (phone, ID, address, etc.).
 6. You can use emojis sparingly (1-2 max).
 7. Reply in English.
+8. When the user wants to contact you, always suggest using kocaborek.berkk@gmail.com or the contact form.
 
 ## MESSAGE RELAY RULES — VERY IMPORTANT:
 
@@ -245,14 +247,14 @@ export async function onRequestPost(context) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': corsOrigin,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type'
   };
 
   const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
   if (!checkRateLimit(ip)) {
     return new Response(JSON.stringify({ error: 'Too many requests. Please wait.' }), {
       status: 429,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 
@@ -262,21 +264,21 @@ export async function onRequestPost(context) {
     if (!message || typeof message !== 'string' || message.trim().length === 0) {
       return new Response(JSON.stringify({ error: 'Message is required' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
     if (message.length > 1000) {
       return new Response(JSON.stringify({ error: 'Message too long' }), {
         status: 400,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
     if (!env.AI) {
       return new Response(JSON.stringify({ error: 'AI binding not configured' }), {
         status: 500,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
@@ -284,17 +286,17 @@ export async function onRequestPost(context) {
 
     // Build messages array for Workers AI
     const messages = [
-      { role: 'system', content: systemPrompt },
+      { role: 'system', content: systemPrompt }
     ];
 
     // Add recent conversation history
     const recentHistory = history.slice(-10);
-    for (const msg of recentHistory) {
+    recentHistory.forEach(msg => {
       messages.push({
         role: msg.role === 'user' ? 'user' : 'assistant',
-        content: msg.text,
+        content: msg.text
       });
-    }
+    });
 
     // Add current user message
     messages.push({ role: 'user', content: message });
@@ -302,7 +304,7 @@ export async function onRequestPost(context) {
     const aiResponse = await env.AI.run(AI_MODEL, {
       messages,
       max_tokens: 1024,
-      temperature: 0.7,
+      temperature: 0.7
     });
 
     const reply = aiResponse?.response || '';
@@ -310,7 +312,7 @@ export async function onRequestPost(context) {
     if (!reply) {
       return new Response(JSON.stringify({ error: 'No response from AI' }), {
         status: 502,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
@@ -320,13 +322,13 @@ export async function onRequestPost(context) {
     // Extract ACTION tags
     const actions = [];
     const actionRegex = /\[ACTION:([^\]]+)\]/g;
-    let match;
-    while ((match = actionRegex.exec(reply)) !== null) {
-      const parts = match[1].split(':');
-      const action = { type: parts[0] };
-      if (parts[1]) action.payload = parts[1];
+    const allMatches = Array.from(reply.matchAll(actionRegex));
+    allMatches.forEach(m => {
+      const [type, payload] = m[1].split(':');
+      const action = { type };
+      if (payload) action.payload = payload;
       actions.push(action);
-    }
+    });
 
     // Clean reply — remove all tags
     const cleanReply = reply
@@ -335,7 +337,7 @@ export async function onRequestPost(context) {
       .trim();
 
     return new Response(JSON.stringify({ reply: cleanReply, relay: hasRelay, actions }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   } catch (error) {
     console.error('Chat function error:', error);
@@ -343,13 +345,13 @@ export async function onRequestPost(context) {
     if (error.message?.includes('exceeded') || error.message?.includes('rate')) {
       return new Response(JSON.stringify({ error: 'rate_limit' }), {
         status: 429,
-        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       });
     }
 
     return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
     });
   }
 }
@@ -359,7 +361,7 @@ export async function onRequestOptions() {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
+      'Access-Control-Allow-Headers': 'Content-Type'
+    }
   });
 }
