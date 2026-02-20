@@ -63,25 +63,24 @@ const SYSTEM_PROMPTS = {
 
 ## MESAJ İLETME (RELAY) KURALLARI — ÇOK ÖNEMLİ:
 
-[RELAY] etiketini SADECE ve SADECE kullanıcı açıkça Berk'e kişisel bir mesaj göndermek istediğinde ekle.
+[RELAY] etiketini SADECE ve SADECE kullanıcı açıkça Berk'e kişisel bir mesaj göndermek istediğinde ve gerekli bilgileri (isim veya iletişim bilgisi) paylaştığında ekle.
+
+SÜREÇ:
+1. Kullanıcı mesaj iletmek istediğinde, ÖNCE kibarca kim olduğunu veya kendisine nasıl ulaşılabileceğini (isim/mail) sor.
+2. Kullanıcı kimliğini belirttikten sonra, "Mesajınız Berk'e iletilecek!" de ve cevabının EN SONUNA [RELAY] ekle.
 
 RELAY GEREKTİREN örnekler (kullanıcı açıkça mesaj bırakmak istiyor):
-- "Berk'e söyle yarın görüşelim" → Relay VAR
-- "Berk'e iletir misin, projeni beğendim" → Relay VAR
-- "Mesaj bırakmak istiyorum" → Relay VAR
-- "Berk'e ulaşmak istiyorum, şunu ilet" → Relay VAR
+- "Berk'e söyle yarın görüşelim" → "Tabii, iletirim. Kimin mesajı olduğunu ve size nasıl ulaşabileceğini de yazar mısınız?"
+- "Berk'e iletir misin, projeni beğendim, ben Ahmet" → "Memnuniyetle Ahmet! Mesajınız Berk'e iletilecek!
+[RELAY]"
 
 RELAY GEREKTİRMEYEN örnekler (normal soru, bilgi talebi):
 - "Berk kimdir?" → Relay YOK, normal cevap ver
-- "Projeleri neler?" → Relay YOK, normal cevap ver
-- "Berk ne iş yapıyor?" → Relay YOK, normal cevap ver
-- "Nasıl iletişime geçebilirim?" → Relay YOK, iletişim bilgilerini ver
 - "Merhaba" → Relay YOK, selamla
 
-Eğer relay gerekiyorsa:
-1. Önce kullanıcıya "Mesajınız Berk'e iletilecek!" de
-2. Cevabının EN SONUNA (son satıra) [RELAY] yaz
-3. [RELAY] etiketinden ÖNCE başka bir şey olmasın, sadece etiket olsun
+Eğer relay aşamasına gelindiyse:
+1. Cevabının EN SONUNA (son satıra) [RELAY] yaz.
+2. [RELAY] etiketinden ÖNCE başka bir şey olmasın, sadece etiket olsun.
 
 ## AKSİYON ETİKETLERİ (AGENTIC ÖZELLİKLER):
 
@@ -214,7 +213,7 @@ When user asks about projects related to a specific topic/technology:
 You can add multiple tags to one response. Each tag should be on its own line.`
 };
 
-const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct';
+const AI_MODEL = '@cf/meta/llama-3.3-70b-instruct-fp8-fast';
 
 const rateLimitMap = new Map();
 const RATE_LIMIT_WINDOW = 60000;

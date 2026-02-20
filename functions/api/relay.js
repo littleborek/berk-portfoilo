@@ -25,6 +25,8 @@ export async function onRequestPost(context) {
 
     const { GOOGLE_SCRIPT_URL: googleScriptUrl } = env;
 
+    console.log('Relay initiated. Target URL:', googleScriptUrl ? 'Configured' : 'MISSING');
+
     const historyText = chatHistory
       .slice(-6)
       .map(msg => `${msg.role === 'user' ? 'Ziyaretçi' : 'Asistan'}: ${msg.text}`)
@@ -34,6 +36,7 @@ export async function onRequestPost(context) {
     let response;
 
     if (googleScriptUrl) {
+      console.log('Sending to Google Sheets...');
       // Google Sheets Apps Script integration
       response = await fetch(googleScriptUrl, {
         method: 'POST',
@@ -47,7 +50,9 @@ export async function onRequestPost(context) {
           date: timestamp
         })
       });
+      console.log('Google Sheets Response Status:', response.status);
     } else {
+      console.log('Google Script URL missing, falling back to Formspree.');
       // Fallback to Formspree
       const emailBody = '📬 Chatbot üzerinden yeni mesaj iletildi!\n\n'
         + '━━━━━━━━━━━━━━━━━━━━━━━━━━\n'
