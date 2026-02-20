@@ -4,7 +4,7 @@ This project is a modern, high-performance digital portfolio designed to showcas
 
 ## 🔗 Live Preview
 
-[![Visit Live Site](https://img.shields.io/badge/-Visit%20Live%20Site-1abc9c?style=for-the-badge&logo=cloudflare&logoColor=black)](https://berk-site.pages.dev/)
+[![Visit Live Site](https://img.shields.io/badge/-Visit%20Live%20Site-1abc9c?style=for-the-badge&logo=cloudflare&logoColor=black)](https://berkk.cloud/)
 
 ---
 
@@ -57,7 +57,7 @@ Bu proje, modern web geliştirme ve DevOps pratiklerini birleştiren kişisel bi
 
 ## 🔗 Canlı Önizleme
 
-https://berk-site.pages.dev/
+https://berkk.cloud/
 
 ## 🛠️ Teknik Özellikler
 
