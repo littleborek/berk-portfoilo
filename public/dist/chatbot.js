@@ -51,6 +51,10 @@
   };
 
   function getLang() {
+    // Priority: HTML lang attribute -> LocalStorage -> Default 'tr'
+    const htmlLang = document.documentElement.lang;
+    if (htmlLang && (htmlLang === 'tr' || htmlLang === 'en')) return htmlLang;
+
     try {
       return localStorage.getItem('language') || 'tr';
     } catch (e) {
@@ -265,6 +269,7 @@
     messageCount++;
 
     chatHistory.push({ role: 'user', text });
+    if (chatHistory.length > 12) chatHistory.shift(); // Keep context light
 
     isWaiting = true;
     updateSendButton();

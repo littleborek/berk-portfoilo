@@ -1,6 +1,6 @@
 name = "berk-portfoilo"
 compatibility_date = "2026-02-19"
-pages_build_output_dir = "."
+pages_build_output_dir = "public"
 
 [ai]
 binding = "AI"

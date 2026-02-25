@@ -34,7 +34,7 @@ nav.frosted-glass {
   width: 4.5ch;
   white-space: nowrap;
   overflow: hidden;
-  border-right: 4px solid #1abc9c;
+  border-right: 4px solid #7c3aed;
   animation: typing 1s steps(4), blink 0.5s step-end infinite alternate;
 }
 
@@ -55,6 +55,7 @@ nav.frosted-glass {
 }
 
 @keyframes bounce {
+
   0%,
   20%,
   50%,
@@ -101,7 +102,7 @@ nav.frosted-glass {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1abc9c;
+  background-color: #7c3aed;
   border-radius: 9999px;
   z-index: 10;
 }
@@ -124,39 +125,67 @@ nav.frosted-glass {
 
 .chatbot-bubble {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 2rem;
+  right: 2rem;
   z-index: 9999;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  border: 1px solid rgba(26, 188, 156, 0.4);
-  background: linear-gradient(135deg, #1abc9c, #16a085);
-  color: #000;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  background: rgba(124, 58, 237, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  color: #7c3aed;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 24px rgba(26, 188, 156, 0.35), 0 0 0 0 rgba(26, 188, 156, 0.4);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  animation: chatbot-pulse 2.5s infinite;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chatbot-bubble::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(45deg, #7c3aed, transparent, #4f46e5);
+  z-index: -1;
+  opacity: 0.3;
+  transition: opacity 0.3s;
 }
 
 .chatbot-bubble:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 32px rgba(26, 188, 156, 0.5);
-  animation: none;
+  transform: translateY(-5px) scale(1.05);
+  background: rgba(124, 58, 237, 0.25);
+  border-color: rgba(124, 58, 237, 0.5);
+  box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
 }
 
-@keyframes chatbot-pulse {
-  0%,
-  100% {
-    box-shadow: 0 4px 24px rgba(26, 188, 156, 0.35), 0 0 0 0 rgba(26, 188, 156, 0.4);
+.chatbot-bubble:hover::before {
+  opacity: 0.6;
+}
+
+.chatbot-bubble svg {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 0 8px rgba(124, 58, 237, 0.5));
+}
+
+@keyframes chatbot-entrance {
+  from {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
   }
 
-  50% {
-    box-shadow: 0 4px 24px rgba(26, 188, 156, 0.35), 0 0 0 10px rgba(26, 188, 156, 0);
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
   }
+}
+
+.chatbot-bubble {
+  animation: chatbot-entrance 0.6s backwards;
 }
 
 .chatbot-window {
@@ -171,7 +200,7 @@ nav.frosted-glass {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 1px rgba(26, 188, 156, 0.3);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 1px rgba(124, 58, 237, 0.3);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -193,7 +222,7 @@ nav.frosted-glass {
   justify-content: space-between;
   padding: 0.875rem 1rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(26, 188, 156, 0.06);
+  background: rgba(124, 58, 237, 0.06);
 }
 
 .chatbot-header-info {
@@ -206,7 +235,7 @@ nav.frosted-glass {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1abc9c, #16a085);
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +253,7 @@ nav.frosted-glass {
 
 .chatbot-status {
   font-size: 0.7rem;
-  color: #1abc9c;
+  color: #7c3aed;
   display: block;
   line-height: 1.2;
 }
@@ -313,9 +342,9 @@ nav.frosted-glass {
 }
 
 .chat-message-system .chat-msg-content {
-  background: rgba(26, 188, 156, 0.1);
-  border: 1px solid rgba(26, 188, 156, 0.2);
-  color: #1abc9c;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid rgba(124, 58, 237, 0.2);
+  color: #7c3aed;
   font-size: 0.775rem;
   text-align: center;
   border-radius: 0.5rem;
@@ -326,17 +355,17 @@ nav.frosted-glass {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: rgba(26, 188, 156, 0.15);
+  background: rgba(124, 58, 237, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1abc9c;
+  color: #7c3aed;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .chat-message-user .chat-msg-content {
-  background: linear-gradient(135deg, #1abc9c, #16a085);
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
   color: #000;
   border-bottom-right-radius: 4px;
   font-weight: 500;
@@ -350,7 +379,7 @@ nav.frosted-glass {
 }
 
 .chat-msg-content a {
-  color: #1abc9c;
+  color: #7c3aed;
   text-decoration: underline;
   text-underline-offset: 2px;
 }
@@ -386,6 +415,7 @@ nav.frosted-glass {
 }
 
 @keyframes typing-dot {
+
   0%,
   60%,
   100% {
@@ -408,9 +438,9 @@ nav.frosted-glass {
 }
 
 .chatbot-chip {
-  background: rgba(26, 188, 156, 0.08);
-  border: 1px solid rgba(26, 188, 156, 0.25);
-  color: #1abc9c;
+  background: rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  color: #7c3aed;
   font-size: 0.775rem;
   font-weight: 500;
   padding: 0.35rem 0.75rem;
@@ -421,7 +451,7 @@ nav.frosted-glass {
 }
 
 .chatbot-chip:hover {
-  background: rgba(26, 188, 156, 0.2);
+  background: rgba(124, 58, 237, 0.2);
   transform: scale(1.03);
 }
 
@@ -453,14 +483,14 @@ nav.frosted-glass {
 }
 
 .chatbot-input:focus {
-  border-color: rgba(26, 188, 156, 0.5);
+  border-color: rgba(124, 58, 237, 0.5);
 }
 
 .chatbot-send-btn {
   width: 38px;
   height: 38px;
   border-radius: 0.625rem;
-  background: linear-gradient(135deg, #1abc9c, #16a085);
+  background: linear-gradient(135deg, #7c3aed, #4f46e5);
   color: #000;
   border: none;
   cursor: pointer;
@@ -504,8 +534,8 @@ nav.frosted-glass {
 
 /* ---- Project search highlight ---- */
 .project-highlight {
-  border-color: #1abc9c !important;
-  box-shadow: 0 0 20px rgba(26, 188, 156, 0.4), 0 0 40px rgba(26, 188, 156, 0.1);
+  border-color: #7c3aed !important;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.4), 0 0 40px rgba(124, 58, 237, 0.1);
   animation: project-glow 1.5s ease-in-out infinite alternate;
   transform: scale(1.03);
   transition: all 0.4s ease;
@@ -513,10 +543,10 @@ nav.frosted-glass {
 
 @keyframes project-glow {
   from {
-    box-shadow: 0 0 15px rgba(26, 188, 156, 0.3), 0 0 30px rgba(26, 188, 156, 0.1);
+    box-shadow: 0 0 15px rgba(124, 58, 237, 0.3), 0 0 30px rgba(124, 58, 237, 0.1);
   }
 
   to {
-    box-shadow: 0 0 25px rgba(26, 188, 156, 0.5), 0 0 50px rgba(26, 188, 156, 0.2);
+    box-shadow: 0 0 25px rgba(124, 58, 237, 0.5), 0 0 50px rgba(124, 58, 237, 0.2);
   }
 }

@@ -1,3 +1,5 @@
+import { sendNotification } from '../../utils/notify.js';
+
 const FORMSPREE_URL = 'https://formspree.io/f/xdkyzopw';
 
 export async function onRequestPost(context) {
@@ -77,6 +79,13 @@ export async function onRequestPost(context) {
     if (!response.ok) {
       throw new Error('Relay provider error');
     }
+
+    // Ayrıca Telegram bildirimi gönder
+    context.waitUntil(sendNotification(message, env, {
+      type: 'PERSONAL_MESSAGE',
+      priority: 1,
+      payload: { source: 'Chat_Relay' }
+    }));
 
     return new Response(JSON.stringify({ success: true }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' }

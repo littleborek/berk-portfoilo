@@ -3,12 +3,13 @@
   "version": "1.0.0",
   "description": "Portfolio site for Berk Kocaborek, refactored for professional CI pipeline.",
   "scripts": {
-    "lint:js": "eslint script.js chatbot.js",
-    "lint:css": "stylelint style.css",
+    "lint:js": "eslint src/js/*.js",
+    "lint:css": "stylelint src/css/*.css",
     "lint": "npm run lint:js && npm run lint:css",
-    "build:css": "tailwindcss -i ./style.css -o ./dist/app.css --minify",
-    "optimize:img": "node ./image-optimizer.js",
-    "build": "npm run build:css && npm run optimize:img"
+    "build:css": "tailwindcss -i src/css/style.css -o public/dist/app.css --minify",
+    "build:js": "mkdir -p public/dist && cp src/js/*.js public/dist/",
+    "optimize:img": "node utils/image-optimizer.js",
+    "build": "npm run build:css && npm run build:js && npm run optimize:img"
   },
   "devDependencies": {
     "eslint": "^8.56.0",

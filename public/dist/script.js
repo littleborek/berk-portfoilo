@@ -39,11 +39,28 @@ function initStarfield() {
   geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
   const material = new THREE.PointsMaterial({
-    size: isMobile ? 0.25 : 0.02,
+    size: isMobile ? 0.35 : 0.04, // Larger stars
     color: 0xffffff,
     transparent: true,
-    opacity: isMobile ? 0.9 : 0.7
+    opacity: isMobile ? 1.0 : 0.9, // Higher opacity for brightness
+    vertexColors: true,
+    blending: THREE.AdditiveBlending // Glow effect
   });
+
+  const colors = new Float32Array(starCount * 3);
+  for (let i = 0; i < starCount; i++) {
+    const isPurple = Math.random() > 0.8;
+    if (isPurple) {
+      colors[i * 3] = 0.5; // R
+      colors[i * 3 + 1] = 0.25; // G
+      colors[i * 3 + 2] = 1.0; // B
+    } else {
+      colors[i * 3] = 1;
+      colors[i * 3 + 1] = 1;
+      colors[i * 3 + 2] = 1;
+    }
+  }
+  geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
 
   stars = new THREE.Points(geometry, material);
   scene.add(stars);
@@ -69,6 +86,10 @@ function onTouchMove(event) {
 }
 
 function animate() {
+  if (document.hidden) {
+    requestAnimationFrame(animate);
+    return;
+  }
   requestAnimationFrame(animate);
 
   if (isMobile) {
