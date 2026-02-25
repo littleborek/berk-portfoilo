@@ -10,15 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: ⚙️ Setup Node.js (Linters için gerekli)
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           
       - name: 📦 Install CI Dependencies
-        run: npm install
+        run: npm ci
 
       - name: 📦 Install HTML Linter (Global)
         run: npm install -g htmlhint
@@ -38,16 +38,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: ⚙️ Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install Project Dependencies
         # Hem Tailwind hem de sharp paketlerini kurar
-        run: npm install 
+        run: npm ci 
         
       - name: Build All Assets (CSS & Images)
         # Yeni birleşik build komutunu çalıştırır
@@ -66,7 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # GÜNCELLENDİ: v3 yerine v4 kullanılıyor
       - name: Download Build Artifacts (dist)
