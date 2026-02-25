@@ -24,7 +24,7 @@ jobs:
         run: npm install -g htmlhint
         
       - name: ✅ Validate HTML Syntax (HTMLHint)
-        run: htmlhint index.html
+        run: htmlhint public/index.html
         
       - name: 🧹 Run JavaScript Linter (ESLint)
         run: npm run lint:js
@@ -57,7 +57,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dist-files
-          path: dist
+          path: public/dist
 
 
   deploy: # CD JOB'u (Artık Build'e Bağımlı)
@@ -73,7 +73,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dist-files
-          path: dist
+          path: public/dist
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
@@ -81,5 +81,5 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: ${{ secrets.CLOUDFLARE_PROJECT_NAME }}
-          directory: "."
+          directory: "public"
           wranglerVersion: "4"
