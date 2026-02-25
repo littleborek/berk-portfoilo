@@ -2,7 +2,6 @@
 node_modules/
 
 # Lock dosyaları ve CI çıktıları
-package-lock.json
 npm-debug.log
 
 # İşletim sistemi ve editör dosyaları
