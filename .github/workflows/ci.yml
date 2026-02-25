@@ -15,10 +15,16 @@ jobs:
       - name: ⚙️ Setup Node.js (Linters için gerekli)
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           
+      - name: 📦 Configure NPM
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config set fetch-retries 5
+          npm config set fetch-retry-mintimeout 20000
+
       - name: 📦 Install CI Dependencies
-        run: npm ci
+        run: npm ci || npm install
 
       - name: 📦 Install HTML Linter (Global)
         run: npm install -g htmlhint
@@ -43,11 +49,17 @@ jobs:
       - name: ⚙️ Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
+
+      - name: 📦 Configure NPM
+        run: |
+          npm config set registry https://registry.npmjs.org/
+          npm config set fetch-retries 5
+          npm config set fetch-retry-mintimeout 20000
 
       - name: Install Project Dependencies
         # Hem Tailwind hem de sharp paketlerini kurar
-        run: npm ci 
+        run: npm ci || npm install
         
       - name: Build All Assets (CSS & Images)
         # Yeni birleşik build komutunu çalıştırır
