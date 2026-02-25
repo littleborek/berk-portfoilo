@@ -19,12 +19,12 @@ jobs:
           
       - name: 📦 Configure NPM
         run: |
-          npm config set registry https://registry.npmjs.org/
+          npm config set registry https://registry.yarnpkg.com/
           npm config set fetch-retries 5
-          npm config set fetch-retry-mintimeout 20000
+          npm cache clean --force
 
       - name: 📦 Install CI Dependencies
-        run: npm ci || npm install
+        run: npm install --no-audit --prefer-offline
 
       - name: 📦 Install HTML Linter (Global)
         run: npm install -g htmlhint
@@ -53,13 +53,13 @@ jobs:
 
       - name: 📦 Configure NPM
         run: |
-          npm config set registry https://registry.npmjs.org/
+          npm config set registry https://registry.yarnpkg.com/
           npm config set fetch-retries 5
-          npm config set fetch-retry-mintimeout 20000
+          npm cache clean --force
 
       - name: Install Project Dependencies
         # Hem Tailwind hem de sharp paketlerini kurar
-        run: npm ci || npm install
+        run: npm install --no-audit --prefer-offline
         
       - name: Build All Assets (CSS & Images)
         # Yeni birleşik build komutunu çalıştırır
