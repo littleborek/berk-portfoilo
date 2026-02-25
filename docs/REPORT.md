@@ -1,34 +1,47 @@
-# AI Ajanı Performans ve Analiz Raporu
+# AI Kariyer Asistanı - Proje Raporu
 
-## 1. Tasarım Kararları
+Merhaba, portfolyom için geliştirdiğim bu asistanın arkasındaki mantığı, karşılaştığım zorlukları ve sistemi nasıl kurguladığımı bu raporda özetledim.
 
-Sistemin mimarisinde **Cloudflare Workers AI** ve **Meta Llama 3.3 70B** modeli tercih edilmiştir. Bu modelin seçilme sebebi, 70B parametre büyüklüğünün profesyonel iletişim ve eleştiri süreçlerinde (Critique-Correction) yüksek isabet oranı sağlamasıdır.
+## 1. Tasarım Kararlarım
 
-- **Human-in-the-loop:** Sistem her ne kadar otonom cevap verse de, Telegram entegrasyonu sayesinde insan müdahalesi her an mümkündür.
-- **Self-Correction:** Yanıt kalitesini artırmak için her mesaj bir "hakem" ajan tarafından denetlenmektedir.
+Bu projeyi sadece bir chatbot değil, gerçekten beni temsil edebilecek güvenilir bir "asistan" olarak tasarladım.
 
-## 2. Test Senaryoları (Validation Scenarios)
+- **Teknoloji Seçimi**: Cloudflare Workers üzerinde Meta'nın **Llama 3.3 70B** modelini kullandım. 70B olması, karmaşık hataları ayıklamada ve profesyonel tonu korumada çok daha başarılı sonuçlar veriyor.
+- **Telegram & Google Sheets**: Sistemde olan biten her şeyi anlık olarak Telegram'dan takip ediyorum. Bu sayede "Human-in-the-loop" (İnsan denetimli) bir akış sağladım.
 
-### Senaryo 1: Standart Mülakat Daveti
-- **Kullanıcı Girdisi:** "Merhaba Berk, AWS konusundaki çalışmaların ilgimizi çekti. Pazartesi günü için bir teknik mülakat planlayabilir miyiz?"
-- **Beklenen Davranış:** Teşekkür etmeli, Berk'in AWS yetkinliğini kısaca vurgulamalı ve mesajı ileteceğini söylemeli.
-- **Sonuç:** Başarılı. Ajan daveti aldı, [RELAY] etiketiyle işaretledi ve Telegram'a "İş teklifi/Mülakat" kategorisinde bildirim gönderdi.
+## 2. Değerlendirme Stratejim
 
-### Senaryo 2: Teknik Soru
-- **Kullanıcı Girdisi:** "Portfolyonda Red Hat sertifikan olduğunu gördüm. Hangi konuları kapsıyor?"
-- **Beklenen Davranış:** RH124 içeriği olan sistem yönetimi temellerini doğru açıklamalı.
-- **Sonuç:** Başarılı. Ajan, bağlamdaki RH124 bilgisini kullanarak Linux yönetimi hakkında doğru ve net bilgi verdi.
+Asistanın performansını ölçmek için birkaç farklı katman kullanıyorum:
 
-### Senaryo 3: Bilinmeyen/Güvensiz Soru (Maaş Pazarlığı)
-- **Kullanıcı Girdisi:** "Teklifimiz yıllık 1.200.000 TL, ne dersin?"
-- **Beklenen Davranış:** Direkt rakam vermemeli, yetkisi olmadığını belirtmeli ve `[UNKNOWN]` etiketiyle insan müdahalesi istemeli.
-- **Sonuç:** Başarılı. Ajan "Bu konuda son kararı Berk vermeli" diyerek dürüst bir yaklaşım sergiledi ve yöneticiye kritik bildirim gönderdi.
+- **Otomatik Puanlama**: Denetçi ajan, her cevaba 1-15 arası bir puan veriyor (Ton, Doğruluk, Uygunluk). Eğer puan 12'nin altındaysa, cevap otomatik olarak baştan yazılıyor.
+- **Kritik Senaryo Testleri**: Mülakat davetleri, teknik sorular ve maaş pazarlığı gibi durumları simüle ettim.
 
-## 3. Hata Analizi ve İyileştirmeler
+## 3. Karşılaştığım Zorluklar ve Çözümler
 
-- **Token Limiti:** Cloudflare Workers ücretsiz sürümünde 512 token limiti bazen çok uzun geçmişli konuşmalarda kısıtlayıcı olabiliyor. Bu yüzden konuşma geçmişi (Memory) son 6 mesaj ile sınırlandırılmıştır.
-- **Gecikme (Latency):** İki aşamalı (Üretim + Eleştiri) yapı cevabı yaklaşık 1-2 saniye geciktirse de, yanıt kalitesindeki artış bu bedele değmektedir.
+Her projede olduğu gibi burada da bazı teknik limitlere takıldım:
 
-## 4. Değerlendirme Stratejisi
+- **Token ve Hafıza**: Ücretsiz sürümdeki kısıtlar nedeniyle asistanın "hafızasını" son 6 mesajla sınırladım. Ayrıca sadece ilgili projeleri bağlama ekleyerek yer tasarrufu sağladım.
+- **Hız vs. Kalite**: İki aşamalı kontrol cevabı 1-2 saniye geciktiriyor. Ancak portfolyomda yanlış bir cevap görmektense, kaliteli bir cevap için 2 saniye beklemenin daha mantıklı olduğuna karar verdim.
+- **Bilinmeyen Sorular**: Hakkımda dökümanda olmayan bir şey sorulduğunda asistanın "uydurmaması" için katı kurallar koydum. Bu durumlarda asistan topu bana atıyor ve bana Telegram'dan bildirim düşüyor.
 
-Self-Critic ajanı, yanıtın "Eşik Değer" (Threshold) olan 12 puanın altında kalması durumunda otomatik döngüyü tetikler. Bu, sistemin "kendi hatasından öğrenme" (In-context Learning/Correction) yeteneğini her mesajda canlı tutmasını sağlar.
+## 4. Geriye Bakış
+
+Bu süreçte şunu öğrendim: Bir yapay zekaya hata yapmamasını söylemek yerine, hata yaptığında onu düzeltecek ikinci bir göz eklemek çok daha etkiliymiş. Multi-agent yapısı sistemin güvenilirliğini inanılmaz artırdı.
+
+---
+
+### Sistem Akışı
+
+```mermaid
+graph TD
+    A[Ziyaretçi Mesajı] --> B{Yazar Ajan}
+    B --> C[Taslak Yanıt]
+    C --> D{Denetçi Ajan}
+    D -- Puan < 12 --> E[Otomatik Revizyon]
+    E --> B
+    D -- Puan >= 12 --> F[Onaylı Yanıt]
+    F --> G[Frontend / Kullanıcı]
+    F --> H[Telegram Bildirimi]
+    F --> I[Google Sheets Log]
+```
+
