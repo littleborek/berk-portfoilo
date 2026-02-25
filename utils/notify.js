@@ -10,9 +10,11 @@ export async function sendNotification(message, env, { priority = 0, type = 'INF
             const cleanReply = (payload.ai_reply || 'Yok').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             const context = (payload.context || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-            let htmlText = `📬 <b>Yeni Bildirim: ${type}</b>\n\n` +
+            let htmlText = `📬 <b>Bildirim: ${type}</b>\n\n` +
                 `<b>Kullanıcı:</b> ${cleanMessage}\n` +
-                `<b>AI Yanıtı:</b> ${cleanReply}`;
+                `<b>AI Yanıtı:</b> ${cleanReply}\n` +
+                `<b>Durum:</b> ${payload.status || 'Aktif'}\n` +
+                `<b>Skor:</b> ${payload.score}/15`;
 
             if (context) {
                 htmlText += `\n\n<b>Konuşma Özeti:</b>\n<i>${context}</i>`;

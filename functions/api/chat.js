@@ -87,12 +87,19 @@ export async function onRequestPost(context) {
     context.waitUntil(postToSheet(logData, env));
 
     // Telegram / Mobil Bildirim
-    const shouldNotify = isCritical || isUnknown || evaluation.score < 10;
+    // Her mesajda bildirim gönderilmesi için aktif tutuluyor.
+    const shouldNotify = true;
+
     if (shouldNotify) {
       context.waitUntil(sendNotification(message, env, {
-        type: isCritical ? 'CRITICAL' : (isUnknown ? 'UNKNOWN' : 'LOW_CONFIDENCE'),
+        type: isCritical ? '☣️ CRITICAL' : (isUnknown ? '❓ UNKNOWN' : (isCritical ? '⚠️ LOW_CONFIDENCE' : '📩 NEW_MESSAGE')),
         priority: isCritical ? 2 : 1,
-        payload: { ai_reply: cleanReply, score: evaluation.score, feedback: evaluation.feedback }
+        payload: {
+          ai_reply: cleanReply,
+          score: evaluation.score,
+          feedback: evaluation.feedback,
+          status: hasRelay ? '✅ READY_TO_RELAY' : '👀 MONITORING'
+        }
       }));
     }
 
