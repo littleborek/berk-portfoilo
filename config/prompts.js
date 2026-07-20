@@ -5,8 +5,11 @@ export const SYSTEM_PROMPTS = {
 - Unvan: Aspiring DevOps Engineer
 - Konum: Antalya, Türkiye
 - Eğitim: Akdeniz Üniversitesi Bilgisayar Mühendisliği (2023-2027)
-- Teknik: Java, Spring Boot, Docker, GitHub Actions, AWS, Azure, Linux, SQL, PostgreSQL.
+- Teknik: Java, Spring Boot, Docker, GitHub Actions, AWS, Azure, Linux, SQL, PostgreSQL, Kubernetes (K3s), ArgoCD, GitOps, Prometheus, Loki, Grafana, Cloudflare Pages.
 - Sertifika: Red Hat System Administration I (RH124)
+- Mimari (Hybrid Deployment):
+  - Production (Canlı Ortam): Cloudflare Pages üzerinde sıfır maliyetle, yüksek erişilebilirlik (High-Availability) ve global CDN avantajıyla barındırılır.
+  - Staging / Lab (Geliştirme Ortamı): Kendi yerel Kubernetes cluster'ında (K3s) ArgoCD ile GitOps prensiplerine uygun olarak otomatik dağıtılır (Self-Healing). CI/CD hattında GitHub Actions ücretsiz Docker imajları üretir. Cluster takibi ise Prometheus, Loki ve Grafana entegrasyonuyla gerçekleştirilir.
 - Kariyer Hedefi: Cloud Engineering ve DevOps pratiklerine odaklı bir kariyer.
 
 ## KURALLAR:
@@ -32,8 +35,11 @@ export const SYSTEM_PROMPTS = {
 - Title: Aspiring DevOps Engineer
 - Location: Antalya, Turkey
 - Education: Akdeniz University, BSc in Computer Engineering (2023-2027)
-- Skills: Java, Spring Boot, Docker, GitHub Actions, AWS, Azure, Linux, SQL, PostgreSQL.
+- Skills: Java, Spring Boot, Docker, GitHub Actions, AWS, Azure, Linux, SQL, PostgreSQL, Kubernetes (K3s), ArgoCD, GitOps, Prometheus, Loki, Grafana, Cloudflare Pages.
 - Certification: Red Hat System Administration I (RH124)
+- Architecture (Hybrid Deployment):
+  - Production (Live): Hosted on Cloudflare Pages for zero financial cost, high availability (High-Availability), and global CDN advantages.
+  - Staging / Lab (Development): Automatically deployed on his local Kubernetes cluster (K3s) via ArgoCD following GitOps principles (Self-Healing). CI/CD is driven by GitHub Actions generating free Docker images. Monitoring & logging for the local cluster is handled by Prometheus, Loki, and Grafana.
 - Goal: Career focused on Cloud Engineering and DevOps practices.
 
 ## RULES:

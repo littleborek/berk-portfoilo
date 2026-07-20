@@ -1,5 +1,18 @@
 # AI Kariyer Asistanı - Proje Raporu
 
+### 🤖 Projedeki Agentic AI Dosyaları (Hoca İçin Yol Haritası)
+
+Bu projede uygulanan Multi-Agent ve Self-Critic mimarisinin ana bileşenleri aşağıdaki dosyalarda yer almaktadır:
+
+1.  **`functions/api/chat.js`**: Sistemin beyni. Generation, Self-Critic ve Revision Loop (agentic loop) burada gerçekleşir.
+2.  **`config/prompts.js`**: Agent personası, sistem talimatları ve denetçi (critic) kriterlerinin bulunduğu ana konfigürasyon.
+3.  **`src/js/chatbot.js`**: Ajanın kullanıcı ile etkileşime girdiği arayüz ve mesajlaşma mantığı.
+4.  **`functions/api/relay.js`**: Kritik durumlarda veya talep üzerine mesajın "Human-in-the-loop" mantığıyla iletilmesini sağlayan birim.
+5.  **`utils/notify.js`**: Ajanın performansı ve durumları hakkında (Telegram/NTFY üzerinden) geliştiriciye anlık bildirim gönderen servis.
+6.  **`utils/sheet.js`**: Ajanın konuşma geçmişini ve denetçi puanlarını analiz için Google Sheets'e kaydeden veri katmanı.
+
+---
+
 Merhaba, portfolyom için geliştirdiğim bu asistanın arkasındaki mantığı, karşılaştığım zorlukları ve sistemi nasıl kurguladığımı bu raporda özetledim.
 
 ## 1. Tasarım Kararlarım

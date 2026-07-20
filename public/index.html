@@ -103,6 +103,8 @@
                         data-i18n-key="nav.skills">Teknolojiler</a>
                     <a href="#experience" class="hover:text-accent transition-colors"
                         data-i18n-key="nav.experience">Eğitim</a>
+                    <a href="#architecture" class="hover:text-accent transition-colors"
+                        data-i18n-key="nav.architecture">Mimari</a>
                     <a href="#projects" class="hover:text-accent transition-colors"
                         data-i18n-key="nav.projects">Projeler</a>
                     <a href="#contact" class="hover:text-accent transition-colors"
@@ -141,6 +143,9 @@
             <a href="#experience"
                 class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link"
                 data-i18n-key="nav.experience">Eğitim</a>
+            <a href="#architecture"
+                class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link"
+                data-i18n-key="nav.architecture">Mimari</a>
             <a href="#projects"
                 class="text-2xl font-bold text-gray-200 hover:text-accent transition-colors mobile-menu-link"
                 data-i18n-key="nav.projects">Projeler</a>
@@ -276,6 +281,168 @@
                             <p class="text-gray-300" data-i18n-key="experience.item1.company">Akdeniz Üniversitesi,
                                 Antalya</p>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="architecture" class="py-24 md:py-32 px-4 md:px-6 bg-transparent">
+            <div class="container mx-auto max-w-5xl animate-on-scroll">
+                <div class="frosted-glass p-6 md:p-10">
+                    <h2 class="text-3xl font-bold mb-2 text-center text-accent scramble-effect"
+                        data-i18n-key="architecture.title">Hibrit Altyapı Mimarisi</h2>
+                    <p class="text-center text-gray-400 mb-12 max-w-2xl mx-auto font-light"
+                        data-i18n-key="architecture.subtitle">Maliyet ve Performans Optimizasyonlu Dağıtım Hattı</p>
+                    
+                    <!-- SVG Flowchart Diagram -->
+                    <div class="hidden md:block w-full mb-16 p-6 bg-black/40 rounded-xl border border-glass-border">
+                        <div class="relative flex items-center justify-between px-4">
+                            
+                            <!-- Node 1: Developer -->
+                            <div class="flex flex-col items-center z-10 w-32 text-center group">
+                                <div class="w-14 h-14 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all duration-300 shadow-md group-hover:shadow-accent/40">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                                    </svg>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-300 mt-2">Developer</span>
+                                <span class="text-[10px] text-gray-500">git push</span>
+                            </div>
+
+                            <!-- Connection Line SVG -->
+                            <svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 0;">
+                                <defs>
+                                    <linearGradient id="gradient-line-1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.6" />
+                                        <stop offset="100%" stop-color="#4f46e5" stop-opacity="0.6" />
+                                    </linearGradient>
+                                    <linearGradient id="gradient-to-prod" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.6" />
+                                        <stop offset="100%" stop-color="#10b981" stop-opacity="0.6" />
+                                    </linearGradient>
+                                    <linearGradient id="gradient-to-staging" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#4f46e5" stop-opacity="0.6" />
+                                        <stop offset="100%" stop-color="#7c3aed" stop-opacity="0.6" />
+                                    </linearGradient>
+                                </defs>
+                                <!-- Line 1: Developer to GitHub Actions -->
+                                <line x1="15%" y1="40%" x2="35%" y2="40%" stroke="url(#gradient-line-1)" stroke-width="2" stroke-dasharray="4 4" />
+                                
+                                <!-- Line 2: GitHub Actions to CF Pages (top path) -->
+                                <path d="M 45% 40% Q 55% 15% 65% 20%" fill="none" stroke="url(#gradient-to-prod)" stroke-width="2" />
+                                
+                                <!-- Line 3: GitHub Actions to K3s (bottom path) -->
+                                <path d="M 45% 40% Q 55% 65% 65% 60%" fill="none" stroke="url(#gradient-to-staging)" stroke-width="2" />
+                            </svg>
+
+                            <!-- Node 2: GitHub Actions -->
+                            <div class="flex flex-col items-center z-10 w-36 text-center group">
+                                <div class="w-14 h-14 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-all duration-300 shadow-md group-hover:shadow-accent/40">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                                    </svg>
+                                </div>
+                                <span class="text-xs font-semibold text-gray-300 mt-2">GitHub Actions</span>
+                                <span class="text-[10px] text-gray-500">CI / Docker Build</span>
+                            </div>
+
+                            <!-- Path splits into Production and Staging right after Actions -->
+                            <div class="flex flex-col space-y-12 w-48">
+                                <!-- Upper Path: Production -->
+                                <div class="flex items-center space-x-3 self-end mr-4 z-10 group">
+                                    <div class="text-right">
+                                        <div class="text-xs font-semibold text-emerald-400">Cloudflare Pages</div>
+                                        <div class="text-[9px] text-gray-400">CDN / Production</div>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:bg-emerald-500 group-hover:text-black transition-all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+                                        </svg>
+                                    </div>
+                                </div>
+
+                                <!-- Lower Path: Staging -->
+                                <div class="flex items-center space-x-3 self-end mr-4 z-10 group">
+                                    <div class="text-right">
+                                        <div class="text-xs font-semibold text-violet-400">Local K3s Cluster</div>
+                                        <div class="text-[9px] text-gray-400">ArgoCD / GitOps</div>
+                                    </div>
+                                    <div class="w-10 h-10 rounded-lg bg-violet-500/10 border border-violet-500/30 flex items-center justify-center text-violet-400 group-hover:bg-violet-500 group-hover:text-black transition-all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detail Cards (Production vs Staging) -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        
+                        <!-- Card 1: Production -->
+                        <div class="frosted-glass p-6 md:p-8 flex flex-col justify-between border border-glass-border hover:border-emerald-500/40 hover:shadow-lg hover:shadow-emerald-500/5 transition-all duration-300 relative overflow-hidden group">
+                            <div class="absolute -right-16 -top-16 w-36 h-36 bg-emerald-500/5 rounded-full blur-3xl group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+                            
+                            <div>
+                                <div class="flex justify-between items-center mb-6">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-400 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20"
+                                          data-i18n-key="architecture.badge.prod">Production</span>
+                                    <div class="flex items-center space-x-1.5 text-xs text-emerald-400">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                        <span>Active</span>
+                                    </div>
+                                </div>
+                                
+                                <h3 class="text-2xl font-bold text-white mb-2" data-i18n-key="architecture.production.title">Production (Canlı Ortam)</h3>
+                                <p class="text-sm text-gray-400 mb-6 font-semibold" data-i18n-key="architecture.production.subtitle">Cloudflare Pages & Edge CDN</p>
+                                
+                                <p class="text-gray-300 leading-relaxed mb-8 text-sm md:text-base font-light" data-i18n-key="architecture.production.desc">
+                                    Finansal maliyeti sıfıra indirmek, yüksek erişilebilirlik (High-Availability) ve küresel CDN avantajı sağlamak amacıyla canlı web trafiği Cloudflare Pages üzerinde sunulmaktadır.
+                                </p>
+                            </div>
+
+                            <!-- Tech tags -->
+                            <div class="flex flex-wrap gap-2 pt-4 border-t border-glass-border">
+                                <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold px-2.5 py-1 rounded-md">Cloudflare Pages</span>
+                                <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold px-2.5 py-1 rounded-md">Edge Network</span>
+                                <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold px-2.5 py-1 rounded-md">High-Availability</span>
+                                <span class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs font-semibold px-2.5 py-1 rounded-md">Zero-Cost Hosting</span>
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Staging / Lab -->
+                        <div class="frosted-glass p-6 md:p-8 flex flex-col justify-between border border-glass-border hover:border-violet-500/40 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-300 relative overflow-hidden group">
+                            <div class="absolute -right-16 -top-16 w-36 h-36 bg-violet-500/5 rounded-full blur-3xl group-hover:bg-violet-500/10 transition-all duration-500"></div>
+
+                            <div>
+                                <div class="flex justify-between items-center mb-6">
+                                    <span class="text-xs font-bold uppercase tracking-wider text-violet-400 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20"
+                                          data-i18n-key="architecture.badge.staging">Staging / Lab</span>
+                                    <div class="flex items-center space-x-1.5 text-xs text-violet-400">
+                                        <span class="w-2.5 h-2.5 rounded-full bg-violet-500 animate-pulse"></span>
+                                        <span>Local Lab</span>
+                                    </div>
+                                </div>
+
+                                <h3 class="text-2xl font-bold text-white mb-2" data-i18n-key="architecture.staging.title">Staging / Lab (Geliştirme Ortamı)</h3>
+                                <p class="text-sm text-gray-400 mb-6 font-semibold" data-i18n-key="architecture.staging.subtitle">Yerel GitOps & Kubernetes Cluster</p>
+
+                                <p class="text-gray-300 leading-relaxed mb-8 text-sm md:text-base font-light" data-i18n-key="architecture.staging.desc">
+                                    Projenin altyapı otomasyonu için yerel bir GitOps hattı kurgulanmıştır. GitHub Actions tarafından ücretsiz üretilen Docker imajları, yerel Kubernetes cluster'ımda (K3s) ArgoCD vasıtasıyla GitOps prensiplerine uygun olarak otomatik dağıtılır (Self-Healing). Lokal cluster'ın metrik ve log takibi ise Prometheus, Loki ve Grafana ile yapılmaktadır.
+                                </p>
+                            </div>
+
+                            <!-- Tech tags -->
+                            <div class="flex flex-wrap gap-2 pt-4 border-t border-glass-border">
+                                <span class="bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-semibold px-2.5 py-1 rounded-md">Kubernetes K3s</span>
+                                <span class="bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-semibold px-2.5 py-1 rounded-md">ArgoCD GitOps</span>
+                                <span class="bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-semibold px-2.5 py-1 rounded-md">GitHub Actions</span>
+                                <span class="bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-semibold px-2.5 py-1 rounded-md">Prometheus & Grafana</span>
+                                <span class="bg-violet-500/10 border border-violet-500/20 text-violet-300 text-xs font-semibold px-2.5 py-1 rounded-md">Self-Healing</span>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
