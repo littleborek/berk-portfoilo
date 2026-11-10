@@ -1,10 +1,10 @@
-# 🚀 Berk - Cloud & DevOps Portfolio
+# Berk Kocabörek — IT Infrastructure & Linux Systems
 
 This project is a modern, high-performance digital portfolio designed to showcase engineering skills alongside aesthetics. It moves beyond static web development by integrating **Continuous Integration (CI)**, **automated performance optimization**, and a **Cloudflare Pages deployment pipeline**.
 
 ## 🔗 Live Preview
 
-[![Visit Live Site](https://img.shields.io/badge/-Visit%20Live%20Site-1abc9c?style=for-the-badge&logo=cloudflare&logoColor=black)](https://berkk.cloud/)
+[![Visit Live Site](https://img.shields.io/badge/-Visit%20Live%20Site-1abc9c?style=for-the-badge&logo=cloudflare&logoColor=black)](https://berkk.online/)
 
 ---
 
@@ -13,8 +13,9 @@ This project is a modern, high-performance digital portfolio designed to showcas
 | Component | Technologies | Focus |
 | :--- | :--- | :--- |
 | **Front-end** | HTML5, Modern JavaScript, Tailwind CSS | Aesthetic, mobile-first design. |
-| **Animation** | three.js, Custom JS Parallax | Dynamic 3D starfield background and mouse interaction. |
-| **Data & Auth** | GitHub API (Projects), Formspree , i18n | Dynamic content loading and functioning contact channel. |
+| **Animation** | Three.js, CSS, IntersectionObserver | Starfield, pointer parallax, and scroll reveals. |
+| **Portfolio content** | Static project cards, local PDFs, English/Turkish | Projects and application documents are available without a GitHub API request. |
+| **Contact** | Formspree | Contact form with a direct email link. |
 | **CI/CD** | **GitHub Actions**, Node.js, ESLint, Stylelint | Fully automated quality control and deployment. |
 
 ## ⚙️ Optimization and CI/CD Pipeline
@@ -36,11 +37,11 @@ The infrastructure of this portfolio project follows a cost-effective and highly
 - **Hosting:** Served on **Cloudflare Pages** at zero financial cost.
 - **Benefits:** Global Edge CDN caching, SSL/TLS termination, automatic DDoS protection, and high-availability (HA).
 
-### 2. Staging / Lab Environment (Local)
+### 2. Home Lab
 - **Virtualization:** Run locally on **OrbStack** (macOS).
 - **Cluster:** A local lightweight **Kubernetes (K3s)** cluster.
-- **GitOps Continuous Delivery:** Powered by **ArgoCD**. It tracks the [k8s/](file:///Users/berk/Projects/berk-portfoilo/k8s/) directory in this repository and automatically synchronizes updates to the cluster (**Self-Healing**).
-- **Monitoring & Observability:** Configured with **Prometheus**, **Loki**, and **Grafana** for metrics and log aggregation.
+- **GitOps experiment:** The [k8s/](k8s/) directory contains an Argo CD application and an example Nginx deployment for a K3s lab.
+- **Monitoring project:** [AI-Ops Dashboard](https://github.com/littleborek/devops-dashboard) collects Linux and Docker telemetry and exposes metrics for Prometheus and Grafana. I built it independently and ran it in my local lab.
 
 ---
 
@@ -68,14 +69,13 @@ Bu proje, modern web geliştirme ve DevOps pratiklerini birleştiren kişisel bi
 
 ## 🔗 Canlı Önizleme
 
-https://berkk.cloud/
+https://berkk.online/
 
 ## 🛠️ Teknik Özellikler
 
 - **CI/CD Pipeline:** GitHub Actions ile tam otomasyon (CI - ESLint/Stylelint & CD - Cloudflare Pages).
 - **Performans Optimizasyonu:** Tailwind CDN yerine CLI ile derlenmiş ve optimize edilmiş CSS. **Sharp** kütüphanesi ile otomatik görsel sıkıştırma.
-- **Dinamizm:** three.js 3D yıldız alanı, mouse parallax ve başlıklar için "Hacker" metin çözülme efekti.
-- **Veri Entegrasyonu:** GitHub API'den canlı proje ve istatistik çekme.
+- **Başvuru İçeriği:** İngilizce ve Türkçe portfolyo, seçili proje kartları ve indirilebilir PDF belgeleri.
 
 ## 🌐 Hibrit Altyapı Mimarisi
 
@@ -85,11 +85,11 @@ Bu projenin altyapısı, maliyet ve performans açısından optimize edilmiş bi
 - **Barındırma:** Canlı trafik, sıfır finansal maliyetle **Cloudflare Pages** üzerinde sunulmaktadır.
 - **Avantajlar:** Küresel Edge CDN, SSL/TLS, DDoS koruması ve yüksek erişilebilirlik (High-Availability).
 
-### 2. Staging / Lab (Geliştirme Ortamı)
+### 2. Ev Laboratuvarı
 - **Sanallaştırma:** **OrbStack** üzerinde yerel olarak çalıştırılır.
 - **Cluster:** Yerel hafif **Kubernetes (K3s)** cluster'ı.
 - **GitOps CD:** **ArgoCD** vasıtasıyla [k8s/](file:///Users/berk/Projects/berk-portfoilo/k8s/) klasöründeki değişiklikler otomatik olarak dağıtılır (**Self-Healing**).
-- **İzleme & Takip:** Metrik ve log takibi için **Prometheus**, **Loki** ve **Grafana** entegrasyonu mevcuttur.
+- **İzleme projesi:** [AI-Ops Dashboard](https://github.com/littleborek/devops-dashboard), Linux ve Docker telemetrisini toplar ve Prometheus/Grafana için metrik sunar. Projeyi kendim geliştirdim ve yerel laboratuvarda çalıştırdım.
 
 ---
 

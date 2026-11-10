@@ -360,16 +360,11 @@
   }
 
   function handleDownloadCV() {
+    const resume = document.getElementById(`resume-${getLang()}`);
+    if (!resume) return;
+
     addMessage('system', t('cvDownloading'), { animate: true });
-    setTimeout(() => {
-      const link = document.createElement('a');
-      link.href = '/cv.pdf';
-      link.download = 'Berk_Kocaborek_CV.pdf';
-      link.style.display = 'none';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }, 500);
+    resume.click();
   }
 
   function handleSearchProjects(keyword) {
@@ -381,7 +376,7 @@
       // Scroll to projects section
       const projectsSection = document.getElementById('projects');
       if (projectsSection) {
-        projectsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        projectsSection.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
 
       // Search through project cards
