@@ -90,26 +90,23 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const starfield = document.getElementById('starfield-container');
 
 function initStarfield() {
-  if (reducedMotion.matches || !window.THREE) return;
-
   const {
     Scene, PerspectiveCamera, WebGLRenderer, BufferGeometry, BufferAttribute, PointsMaterial,
     Points, AdditiveBlending
   } = window.THREE;
-  const mobile = window.matchMedia('(pointer: coarse)').matches;
   let renderer;
   try {
-    renderer = new WebGLRenderer({ alpha: true, antialias: !mobile });
+    renderer = new WebGLRenderer({ alpha: true, antialias: true });
   } catch (error) {
-    return;
+    return null;
   }
 
   const scene = new Scene();
-  const camera = new PerspectiveCamera(mobile ? 75 : 60, 1, 1, 1000);
+  const camera = new PerspectiveCamera(60, 1, 1, 1000);
   camera.position.z = 1;
   camera.rotation.x = Math.PI / 2;
 
-  const count = mobile ? 1500 : 6000;
+  const count = 4000;
   const positions = new Float32Array(count * 3);
   const colors = new Float32Array(count * 3);
   for (let i = 0; i < positions.length; i += 3) {
@@ -124,7 +121,7 @@ function initStarfield() {
   geometry.setAttribute('position', new BufferAttribute(positions, 3));
   geometry.setAttribute('color', new BufferAttribute(colors, 3));
   const material = new PointsMaterial({
-    size: mobile ? 0.35 : 0.14,
+    size: 0.14,
     transparent: true,
     opacity: 0.9,
     vertexColors: true,
@@ -137,7 +134,7 @@ function initStarfield() {
   function resize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, mobile ? 1.5 : 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
   }
   resize();
@@ -145,18 +142,73 @@ function initStarfield() {
 
   let targetX = 0;
   let targetY = 0;
+  let active = false;
   window.addEventListener('pointermove', event => {
+    if (!active) return;
     targetX = (event.clientX / window.innerWidth - 0.5) * 0.5;
     targetY = (event.clientY / window.innerHeight - 0.5) * 0.5;
   }, { passive: true });
 
-  renderer.setAnimationLoop(() => {
-    if (document.hidden || reducedMotion.matches) return;
-    stars.rotation.z += 0.0005;
+  let lastFrame = 0;
+  function renderFrame(time) {
+    if (time - lastFrame < 32) return;
+    lastFrame = time;
+    stars.rotation.z += 0.001;
     stars.rotation.y += (targetX - stars.rotation.y) * 0.05;
     stars.rotation.x += (targetY - stars.rotation.x) * 0.05;
     renderer.render(scene, camera);
-  });
+  }
+
+  return function setActive(visible) {
+    if (active === visible) return;
+    active = visible;
+    renderer.domElement.style.visibility = active ? 'visible' : 'hidden';
+    renderer.setAnimationLoop(active ? renderFrame : null);
+  };
+}
+
+function watchStarfield() {
+  const desktop = window.matchMedia('(min-width: 768px) and (hover: hover) and (pointer: fine)');
+  let heroVisible = false;
+  let loadScheduled = false;
+  let loadStarted = false;
+  let setActive;
+  const canAnimate = () => heroVisible && desktop.matches && !reducedMotion.matches
+    && !document.hidden;
+
+  function loadRenderer() {
+    loadScheduled = false;
+    if (!canAnimate()) return;
+    loadStarted = true;
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+    script.addEventListener('load', updateStarfield);
+    document.head.appendChild(script);
+  }
+
+  function updateStarfield() {
+    const visible = canAnimate();
+    if (visible && setActive === undefined && window.THREE) setActive = initStarfield();
+    if (setActive) setActive(visible);
+    if (!visible || loadScheduled || loadStarted || document.readyState !== 'complete') return;
+    loadScheduled = true;
+    if (window.requestIdleCallback) {
+      window.requestIdleCallback(loadRenderer);
+    } else {
+      window.setTimeout(loadRenderer, 350);
+    }
+  }
+
+  const heroObserver = new IntersectionObserver(([entry]) => {
+    heroVisible = entry.intersectionRatio >= 0.15;
+    starfield.style.opacity = heroVisible ? '1' : '0.45';
+    updateStarfield();
+  }, { threshold: 0.15 });
+  heroObserver.observe(document.getElementById('home'));
+  desktop.addEventListener('change', updateStarfield);
+  reducedMotion.addEventListener('change', updateStarfield);
+  document.addEventListener('visibilitychange', updateStarfield);
+  window.addEventListener('load', updateStarfield);
 }
 
 function scrambleHeading(heading) {
@@ -195,11 +247,6 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
     }
     revealObserver.observe(section);
   });
-
-  const heroObserver = new IntersectionObserver(([entry]) => {
-    starfield.style.opacity = entry.isIntersecting ? '1' : '0.45';
-  }, { threshold: 0.15 });
-  heroObserver.observe(document.getElementById('home'));
 }
 
-initStarfield();
+if ('IntersectionObserver' in window) watchStarfield();
