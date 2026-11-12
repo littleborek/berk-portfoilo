@@ -10,8 +10,14 @@ const localizedImages = [...document.querySelectorAll('[data-alt-tr]')].map(imag
 }));
 const languageButtons = document.querySelectorAll('.language-switch button');
 const englishTitle = document.title;
+const headingAnimations = new Map();
 
 function setLanguage(lang) {
+  headingAnimations.forEach((interval, heading) => {
+    clearInterval(interval);
+    heading.removeAttribute('aria-label');
+  });
+  headingAnimations.clear();
   document.documentElement.lang = lang;
   document.title = lang === 'tr' ? 'Berk Kocabörek | IT Altyapısı ve Linux Sistemleri' : englishTitle;
   localizedText.forEach(({ element, ...copy }) => {
@@ -212,6 +218,8 @@ function watchStarfield() {
 }
 
 function scrambleHeading(heading) {
+  if (headingAnimations.has(heading)) return;
+
   const { textContent: text } = heading;
   const { lang } = document.documentElement;
   const symbols = '!<>-_\\/[]{}=+*^?#';
@@ -220,6 +228,7 @@ function scrambleHeading(heading) {
   const interval = setInterval(() => {
     if (document.documentElement.lang !== lang || reducedMotion.matches || step >= text.length) {
       clearInterval(interval);
+      headingAnimations.delete(heading);
       if (document.documentElement.lang === lang) heading.textContent = text;
       heading.removeAttribute('aria-label');
       return;
@@ -229,6 +238,7 @@ function scrambleHeading(heading) {
     )).join('');
     step += 1;
   }, 35);
+  headingAnimations.set(heading, interval);
 }
 
 if ('IntersectionObserver' in window && !reducedMotion.matches) {
