@@ -1,97 +1,56 @@
 # Berk Kocabörek — IT Infrastructure & Linux Systems
 
-This project is a modern, high-performance digital portfolio designed to showcase engineering skills alongside aesthetics. It moves beyond static web development by integrating **Continuous Integration (CI)**, **automated performance optimization**, and a **Cloudflare Pages deployment pipeline**.
+Final-year Computer Engineering student at Akdeniz University, focused on Linux systems, IT infrastructure, cloud, and observability.
 
-## 🔗 Live Preview
+**Portfolio:** [berkk.online](https://berkk.online/) · **GitHub:** [littleborek](https://github.com/littleborek) · **LinkedIn:** [Berk Kocabörek](https://www.linkedin.com/in/berk-kocaborek)
 
-[![Visit Live Site](https://img.shields.io/badge/-Visit%20Live%20Site-1abc9c?style=for-the-badge&logo=cloudflare&logoColor=black)](https://berkk.online/)
+## Profile
 
----
+- BSc Computer Engineering, Akdeniz University · expected 2027
+- English: Advanced (C1) · YÖKDİL 92.5
+- Focus: Linux/RHEL, Docker, CasaOS, K3s, networking, AWS, and monitoring
+- Red Hat Academy — Red Hat System Administration I (RH124-9.0, certificate of attendance)
 
-## 🛠️ Technical Stack & Implementation
+## Selected Projects
 
-| Component | Technologies | Focus |
-| :--- | :--- | :--- |
-| **Front-end** | HTML5, Modern JavaScript, Tailwind CSS | Aesthetic, mobile-first design. |
-| **Animation** | Three.js, CSS, IntersectionObserver | Starfield, pointer parallax, and scroll reveals. |
-| **Portfolio content** | Static project cards, local PDFs, English/Turkish | Projects and application documents are available without a GitHub API request. |
-| **Contact** | Formspree | Contact form with a direct email link. |
-| **CI/CD** | **GitHub Actions**, Node.js, ESLint, Stylelint | Fully automated quality control and deployment. |
+### AI-Ops Dashboard
 
-## ⚙️ Optimization and CI/CD Pipeline
+A self-hosted dashboard for Linux and Docker telemetry, Prometheus metrics, Grafana, and optional AI-assisted diagnostics. Built independently and run in a local lab.
 
-The core value of this repository lies in its CI/CD process, which runs on every push:
+[Source code](https://github.com/littleborek/devops-dashboard)
 
-1.  **Code Validation (CI):**
-    * ESLint (JS) and Stylelint (CSS) check code against professional standards.
-    * HTMLHint verifies structural integrity.
-2.  **Asset Optimization (Build):**
-    * **Tailwind Compilation:** The build script uses the Tailwind CLI to compile, purge, and minify CSS, eliminating the slow CDN dependency and drastically reducing CSS file size.
-    * **Image Optimization:** The **`sharp`** Node.js library automatically compresses the `profile.jpg` asset, ensuring fast load times (critical for Lighthouse scores).
+### CasaOS GitOps Bridge
 
-## 🌐 Hybrid Deployment Architecture
+A CasaOS backup and restore tool for Docker Compose configuration and selected application state. **Review and sanitize the public repository data before using this project as a portfolio example.**
 
-The infrastructure of this portfolio project follows a cost-effective and highly available hybrid deployment strategy:
+[Source code](https://github.com/littleborek/casaos-gitops-bridge)
 
-### 1. Production Environment (Live)
-- **Hosting:** Served on **Cloudflare Pages** at zero financial cost.
-- **Benefits:** Global Edge CDN caching, SSL/TLS termination, automatic DDoS protection, and high-availability (HA).
+### Linux Home Lab
 
-### 2. Home Lab
-- **Virtualization:** Run locally on **OrbStack** (macOS).
-- **Cluster:** A local lightweight **Kubernetes (K3s)** cluster.
-- **GitOps experiment:** The [k8s/](k8s/) directory contains an Argo CD application and an example Nginx deployment for a K3s lab.
-- **Monitoring project:** [AI-Ops Dashboard](https://github.com/littleborek/devops-dashboard) collects Linux and Docker telemetry and exposes metrics for Prometheus and Grafana. I built it independently and ran it in my local lab.
+Self-hosted services with CasaOS and Docker; hands-on experiments with K3s. The portfolio repository's [`k8s/`](k8s/) directory is a separate staging/Nginx example, not the home lab's actual cluster configuration.
 
----
+## Portfolio Implementation
 
+- Static, bilingual English/Turkish site with local CV downloads
+- HTML, modern JavaScript, Tailwind CSS, and a small Three.js starfield effect
+- GitHub Actions CI with ESLint and Stylelint; Cloudflare Pages deployment
+- Responsive layout and optimized, self-hosted assets
 
-## 📸 Project Screenshot
+## 🇹🇷 Türkçe
 
-<img width="2560" height="5072" alt="Screenshot 2025-11-15 at 23-49-07 Berk Kocabörek - Kişisel Portföy" src="https://github.com/user-attachments/assets/264ed587-5e66-4606-8071-08e7a356502f" />
+Akdeniz Üniversitesi Bilgisayar Mühendisliği son sınıf öğrencisiyim. Linux sistemleri, kurumsal IT altyapısı, bulut ve gözlemlenebilirlik alanlarına odaklanıyorum.
 
+- **Eğitim:** Bilgisayar Mühendisliği · 2027 mezuniyeti bekleniyor
+- **İngilizce:** İleri seviye (C1) · YÖKDİL 92,5
+- **Odak:** Linux/RHEL, Docker, CasaOS, K3s, ağ teknolojileri, AWS ve sistem izleme
+- **Sertifika:** Red Hat Academy — Red Hat System Administration I (RH124-9.0, katılım belgesi)
 
+### Öne çıkan projeler
 
-***
+- **AI-Ops Dashboard:** Linux ve Docker telemetrisi, Prometheus/Grafana metrikleri ve isteğe bağlı AI destekli tanılama sunan self-hosted panel. [Kaynak kodu](https://github.com/littleborek/devops-dashboard)
+- **CasaOS GitOps Bridge:** Docker Compose yapılandırmaları ve seçili uygulama durumlarını yedekleme/geri yükleme aracı. Depodaki veriler temizlenip güvenli hâle getirilmeden portfolyoda öne çıkarılmamalıdır. [Kaynak kodu](https://github.com/littleborek/casaos-gitops-bridge)
+- **Linux ev laboratuvarı:** CasaOS ve Docker ile self-hosted servisler; K3s ile uygulamalı denemeler. Portfolyodaki [`k8s/`](k8s/) klasörü gerçek laboratuvar kümesinin yapılandırması değil, ayrı bir staging/Nginx örneğidir.
 
-*This project serves as a practical demonstration of Cloud and DevOps engineering competencies.*
+### Portfolyo altyapısı
 
----
-
-# 🇹🇷 Türkçe Versiyon (Ek Bilgi)
-
-Bu versiyon, yukarıdaki içeriğin çevirisidir:
-
-```markdown
-# 🚀 Berk - Cloud & DevOps Portföy Sitesi
-
-Bu proje, modern web geliştirme ve DevOps pratiklerini birleştiren kişisel bir portföydür. Sürekli Entegrasyon (CI), otomatik performans optimizasyonu ve Cloudflare Pages dağıtım hattı entegrasyonu ile teknik yeteneklerimi sergilemektedir.
-
-## 🔗 Canlı Önizleme
-
-https://berkk.online/
-
-## 🛠️ Teknik Özellikler
-
-- **CI/CD Pipeline:** GitHub Actions ile tam otomasyon (CI - ESLint/Stylelint & CD - Cloudflare Pages).
-- **Performans Optimizasyonu:** Tailwind CDN yerine CLI ile derlenmiş ve optimize edilmiş CSS. **Sharp** kütüphanesi ile otomatik görsel sıkıştırma.
-- **Başvuru İçeriği:** İngilizce ve Türkçe portfolyo, seçili proje kartları ve indirilebilir PDF belgeleri.
-
-## 🌐 Hibrit Altyapı Mimarisi
-
-Bu projenin altyapısı, maliyet ve performans açısından optimize edilmiş bir hibrit dağıtım (hybrid deployment) mimarisine sahiptir:
-
-### 1. Production (Canlı Ortam)
-- **Barındırma:** Canlı trafik, sıfır finansal maliyetle **Cloudflare Pages** üzerinde sunulmaktadır.
-- **Avantajlar:** Küresel Edge CDN, SSL/TLS, DDoS koruması ve yüksek erişilebilirlik (High-Availability).
-
-### 2. Ev Laboratuvarı
-- **Sanallaştırma:** **OrbStack** üzerinde yerel olarak çalıştırılır.
-- **Cluster:** Yerel hafif **Kubernetes (K3s)** cluster'ı.
-- **GitOps CD:** **ArgoCD** vasıtasıyla [k8s/](file:///Users/berk/Projects/berk-portfoilo/k8s/) klasöründeki değişiklikler otomatik olarak dağıtılır (**Self-Healing**).
-- **İzleme projesi:** [AI-Ops Dashboard](https://github.com/littleborek/devops-dashboard), Linux ve Docker telemetrisini toplar ve Prometheus/Grafana için metrik sunar. Projeyi kendim geliştirdim ve yerel laboratuvarda çalıştırdım.
-
----
-
-*Bu proje, Cloud ve DevOps mühendisliği yetkinliklerini göstermek amacıyla geliştirilmiştir.*
-```
+İngilizce/Türkçe içerik ve yerel CV indirmeleri bulunan statik site. HTML, modern JavaScript ve Tailwind CSS kullanır; GitHub Actions ile ESLint/Stylelint kontrollerinden geçer ve Cloudflare Pages üzerinde yayınlanır.
